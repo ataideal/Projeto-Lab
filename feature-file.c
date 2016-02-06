@@ -3,7 +3,7 @@
 //--------------------------Estruturas-------------------------------//
 struct Data /* Essa estrutura define data */
 {
-	int dia,mes,ano;
+	char dia[3],mes[3],ano[5];
 };
 
 typedef struct Data Data;
@@ -28,16 +28,26 @@ typedef struct Venda Venda;
 //-------------------Protótipo das Funções---------------------------//
 FILE * lerArquivo (char path[]);
 int lerVendedores(Vendedor * vendedores,FILE * arquivo);
+int lerVendas(Venda * vendas,FILE * arquivo);
 //-------------------Protótipo das Funções---------------------------//
 
 int main (){
 	FILE *arquivo;
+	/* --- Usando arquivo para ler os vendedores --- */
 	arquivo = lerArquivo("Vendedores.txt");
-	
 	Vendedor vendedores[10];
 	int quant_vendedores = lerVendedores(vendedores,arquivo);
 	fclose(arquivo);
+	/*----------------------------------------------*/
+
+	/* --- Usando arquivo para ler as vendas --- */
+	arquivo = lerArquivo("Vendas.txt");
+	Venda vendas[10];
+	int quant_vendas = lerVendas(vendas,arquivo);
+	fclose(arquivo);
+	/*-------------------------------------------*/
      
+
 	return 0;
 }
 
@@ -53,10 +63,24 @@ FILE * lerArquivo (char path[]){ /* Esta função recebe como parametro a url do
     	return fp;
 }
 
-int lerVendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendedores, e faz o parse de cada vendedor do arquivo para o vetor e retorna quantidade total de vendedores*/
+int lerVendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendedores, faz o parse de cada vendedor do arquivo para o vetor, e retorna quantidade total de vendedores*/
 	int i=0;
-	while((fscanf(arquivo,"%d %d %s %s %s\n", &vendedores[i].id, &vendedores[i].idade, vendedores[i].nome,vendedores[i].sexo,vendedores[i].cpf))!=EOF )
+	while((fscanf(arquivo,"%d %d %s %s %s\n", &vendedores[i].id, &vendedores[i].idade, vendedores[i].nome,vendedores[i].sexo,vendedores[i].cpf))!=EOF ){
+			//printf ("%d %d %s %s %s",vendedores[i].id, vendedores[i].idade, vendedores[i].nome,vendedores[i].sexo,vendedores[i].cpf);
 			i++;
+	}
+	return i;
+}
+
+int lerVendas(Venda * vendas,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendas, faz o parse de cada venda do arquivo para o vetor, e retorna quantidade total de vendas*/
+	int i=0;
+	//fscanf(arquivo,"%d %d %s %s %s\n", &vendas[i].id, &vendas[i].vendedorId, vendas[i].data.dia,vendas[i].data.mes,vendas[i].data.ano);
+	while((fscanf(arquivo,"%d %d %s %s %s %f\n", &vendas[i].id, &vendas[i].vendedorId, vendas[i].data.dia,vendas[i].data.mes,vendas[i].data.ano,&vendas[i].valor))!=EOF ){
+		fgets (vendas[i].descricao,255,arquivo);
+		//printf ("%d %d %s %s %s %f %s", vendas[i].id, vendas[i].vendedorId, vendas[i].data.dia, vendas[i].data.mes, vendas[i].data.ano,vendas[i].valor,vendas[i].descricao);
+		i++;
+	}
+			
 	return i;
 }
 //---------------------------Funções--------------------------------//
