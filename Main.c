@@ -3,23 +3,11 @@
 #include <gtk/gtk.h>
 #include <glib/gstdio.h>
 #include "lib/util.h"
+#include "lib/vendedores.h"
 
 GtkWidget *window, *button;
 
 //--------------------------Estruturas-------------------------------//
-struct Data /* Essa estrutura define data */
-{
-	int dia,mes,ano;
-};
-
-typedef struct Data Data;
-
-struct Vendedor /* Essa estrutura define um vendedor*/
-{
-	int id,idade;
-	char nome[50],sexo[10],cpf[15];
-};
-typedef struct Vendedor Vendedor;
 
 struct Venda /* Essa estrutura define uma venda */
 {
@@ -29,18 +17,17 @@ struct Venda /* Essa estrutura define uma venda */
 	char descricao[255];
 };
 typedef struct Venda Venda;
-//--------------------------Estruturas-------------------------------//
 
 //-------------------Protótipo das Funções---------------------------//
 FILE * lerArquivo (char path[]);
 int lerVendedores(Vendedor * vendedores,FILE * arquivo);
 //-------------------Protótipo das Funções---------------------------//
 
-void button_click(GtkWidget* button, GtkWindow *window){
-  alert_info(window, "teste");
+void button_click(GtkWidget* button, GtkWindow *this_window){
+  alert_info(this_window, "teste");
   char message_erro[300];
   sprintf(message_erro, "Um mensagem de teste: %d", 1290);
-  alert_error(window, message_erro);
+  alert_error(this_window, message_erro);
 }
 
 int main(int argc, char *argv[]){
@@ -56,6 +43,7 @@ int main(int argc, char *argv[]){
 
   gtk_container_add(GTK_CONTAINER(window), button);
   gtk_widget_show_all(window);
+
   gtk_main();
 
   return 0;
