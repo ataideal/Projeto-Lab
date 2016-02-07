@@ -39,7 +39,7 @@ int main (){
 	FILE *arquivo;
 	/* --- Usando arquivo para ler os vendedores --- */
 	arquivo = lerArquivo("Vendedores.txt");
-	Vendedor vendedores[10];
+	Vendedor vendedores[30];
 	int quant_vendedores = 0;
 	quant_vendedores = lerVendedores(vendedores,arquivo);
 	fclose(arquivo);
@@ -47,20 +47,90 @@ int main (){
 
 	/* --- Usando arquivo para ler as vendas --- */
 	arquivo = lerArquivo("Vendas.txt");
-	Venda vendas[10];
+	Venda vendas[30];
 	int quant_vendas = 0;
 	quant_vendas = lerVendas(vendas,arquivo);
 	fclose(arquivo);
 	/*-------------------------------------------*/
-    
+    /* ----- MENU ----*/
+
+    int opMenu;
+
+
+    do
+    {
+        printf ("Digite a opção desejada:\n");
+        printf ("1 - Cadastrar vendedor.\n");
+        printf ("2 - Cadastrar venda.\n");
+        printf ("3 - Consultar as vendas de um funcionário em um determinado mês\n");
+        printf ("4 - Consultar o total das vendas de um determinado vendedor\n");
+        printf ("5 - Mostrar o número do vendedor que mais vendeu em um determinado mês\n");
+        printf ("6 - Mostrar o número do mês com mais vendas\n");
+        printf ("0 - Finalizar o programa");
+
+        printf ("Opção:  ");
+        scanf ("%d", &opMenu);
+
+        system ("cls");
+
+        int i;
+        Vendedor vend; //Struct - Vendedor , vend variavel
+
+        switch (opMenu){
+
+
+            case 0:
+                printf ("Saindo do menu.");
+                break;
+            case 1:
+
+                printf ("Cadastre o vendedor:");
+                printf ("Digite o nome do vendedor: ");
+                scanf ("%s",vend.nome); //vend variavel, nome dentro da struct
+                printf ("Digite a idade: ");
+                scanf ("%d",&vend.idade);
+                vend.id = incr_vendedor();
+                salvarVendedor(vend);
+                break;
+            case 2:
+                printf ("Cadastre a venda:");
+                break;
+            case 3:
+                printf ("Consulta das vendas do funcionário desse mês.");
+                break;
+            case 4:
+                printf ("Consulte o total de vendas de um vendedor.");
+                break;
+            case 5:
+                break;
+            case 6:
+
+                printf ("Lista de Vendas ");
+                for (i=0;i<quant_vendas;i++){
+                    printf ("Venda %d",i+1);
+                    printf ("Id da venda %d",vendas[i].id);
+                    printf ("Data da venda %s/%s/%s",vendas[i].data.dia,vendas[i].data.mes,vendas[i].data.ano);
+
+                }
+                printf ("Numero do mês com mais vendas:");
+                break;
+            default:
+                printf ("Opção inválida!");
+            }
+        printf ("\n");
+    } while (opMenu!=0);
+
+
+
+    /*-------------------------------------------*/
+
     /* --- Exemplo de como salvar um vendedor --- */
-	Vendedor vend;
+    /*
 	vend.idade = 15;
 	strcpy(vend.nome,"Ataide Neto");
 	strcpy(vend.sexo,"Masc");
 	strcpy(vend.cpf,"102030");
-	vend.id = incr_vendedor();
-	salvarVendedor(vend);
+    */
 	/*--------------------------------------------*/
 
 	/* --- Exemplo de como salvar uma venda --- */
@@ -107,7 +177,7 @@ int lerVendas(Venda * vendas,FILE * arquivo){ /* Esta função recebe o arquivo 
 		//printf ("%d %d %s %s %s %f %s", vendas[i].id, vendas[i].vendedorId, vendas[i].data.dia, vendas[i].data.mes, vendas[i].data.ano,vendas[i].valor,vendas[i].descricao);
 		i++;
 	}
-			
+
 	return i;
 }
 
@@ -127,7 +197,7 @@ void salvarVendedor(Vendedor vendedor){ /*Esta função recebe um vendedor e o e
 	FILE * fp = fopen ("Vendedores.txt","a");
 	int flag=fprintf (fp,"\n%d %d %s %s\n%s",vendedor.id, vendedor.idade,vendedor.sexo,vendedor.cpf,vendedor.nome);
 	fclose(fp);
-	
+
 	if (flag<0)
 		printf ("Erro ao salvar!\n");
 	else
@@ -151,7 +221,7 @@ void salvarVenda(Venda venda){ /*Esta função recebe um venda e o escreve no ar
 	FILE * fp = fopen ("Vendas.txt","a");
 	int flag=fprintf (fp,"\n%d %d %s %s %s %f\n%s",venda.id, venda.vendedorId, venda.data.dia, venda.data.mes, venda.data.ano,venda.valor,venda.descricao);
 	fclose(fp);
-	
+
 	if (flag<0)
 		printf ("Erro ao salvar!\n");
 	else
