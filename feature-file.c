@@ -155,10 +155,6 @@ int main (){
         printf ("\n");
     } while (opMenu!=0);
     /*-------------------------------------------*/
-
-
-
-
 	return 0;
 }
 
@@ -215,7 +211,7 @@ void salvarVendedor(Vendedor vendedor,Vendedor * vendedores,int * quant_vendedor
 	strcpy(vendedores[aux].cpf,vendedor.cpf);
 	strcpy(vendedores[aux].nome,vendedor.nome);
 	strcpy(vendedores[aux].nome,"\n");
-	//Atualizado quantiade de vendedores
+	//Atualizado quantidade de vendedores
 	(*quant_vendedores) = (*quant_vendedores) + 1;
 	//Salvando no arquivo
 	FILE * fp = fopen ("Vendedores.txt","a");
@@ -241,7 +237,19 @@ int incr_venda(){ /*Esta função incrementa o id da venda e o retorna */
 	return incr;
 }
 
-void salvarVenda(Venda venda){ /*Esta função recebe um venda e o escreve no arquivo */
+void salvarVenda(Venda venda,Venda * vendas,int * quant_vendas){ /*Esta função recebe um venda e o escreve no arquivo */
+	//Atualizando vetor de vendas
+	int aux = (*quant_vendas);
+	vendas[aux].id = venda.id;
+	vendas[aux].vendedorId = venda.vendedorId;
+	vendas[aux].data.dia = venda.data.dia;
+	vendas[aux].data.mes = venda.data.mes;
+	vendas[aux].data.ano = venda.data.ano;
+	vendas[aux].valor = venda.valor;
+	strcpy(vendas[aux].descricao,venda.descricao);
+	//Atualizado quantidade de vendas
+	(*quant_vendas) = (*quant_vendas) + 1;
+
 	FILE * fp = fopen ("Vendas.txt","a");
 	int flag=fprintf (fp,"%d %d %d %d %d %f\n%s\n",venda.id, venda.vendedorId, venda.data.dia, venda.data.mes, venda.data.ano,venda.valor,venda.descricao);
 	fclose(fp);
