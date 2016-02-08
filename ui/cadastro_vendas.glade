@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkWindow" id="cadastro_vendedores">
+    <property name="width_request">500</property>
+    <property name="height_request">300</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkLayout" id="layout1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkLabel" id="l_vendedor">
+            <property name="height_request">20</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Vendedor:</property>
+          </object>
+          <packing>
+            <property name="x">22</property>
+            <property name="y">35</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="l_descricao">
+            <property name="width_request">27</property>
+            <property name="height_request">20</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Descrição:</property>
+          </object>
+          <packing>
+            <property name="x">22</property>
+            <property name="y">66</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="l_valor">
+            <property name="width_request">33</property>
+            <property name="height_request">20</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Valor:</property>
+          </object>
+          <packing>
+            <property name="x">22</property>
+            <property name="y">98</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="txt_descricao">
+            <property name="width_request">350</property>
+            <property name="height_request">22</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="max_length">11</property>
+            <property name="invisible_char">●</property>
+          </object>
+          <packing>
+            <property name="x">90</property>
+            <property name="y">66</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_salvar">
+            <property name="label" translatable="yes">Salvar</property>
+            <property name="width_request">100</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">330</property>
+            <property name="y">217</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="l_data_venda">
+            <property name="width_request">33</property>
+            <property name="height_request">20</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Data da Venda:</property>
+          </object>
+          <packing>
+            <property name="x">22</property>
+            <property name="y">139</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="txt_data">
+            <property name="width_request">20</property>
+            <property name="height_request">22</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="max_length">2</property>
+            <property name="invisible_char">●</property>
+            <property name="width_chars">2</property>
+          </object>
+          <packing>
+            <property name="x">117</property>
+            <property name="y">137</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label1">
+            <property name="width_request">2</property>
+            <property name="height_request">20</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_right">5</property>
+            <property name="label" translatable="yes">/</property>
+          </object>
+          <packing>
+            <property name="x">138</property>
+            <property name="y">140</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label2">
+            <property name="width_request">10</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_right">3</property>
+            <property name="label" translatable="yes">/</property>
+          </object>
+          <packing>
+            <property name="x">172</property>
+            <property name="y">142</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="txt_mes">
+            <property name="width_request">20</property>
+            <property name="height_request">22</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="max_length">2</property>
+            <property name="invisible_char">●</property>
+            <property name="width_chars">2</property>
+            <property name="invisible_char_set">True</property>
+          </object>
+          <packing>
+            <property name="x">148</property>
+            <property name="y">137</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="txt_ano">
+            <property name="width_request">34</property>
+            <property name="height_request">22</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="max_length">4</property>
+            <property name="invisible_char">●</property>
+            <property name="width_chars">4</property>
+            <property name="invisible_char_set">True</property>
+          </object>
+          <packing>
+            <property name="x">182</property>
+            <property name="y">137</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="txt_vendedor">
+            <property name="width_request">350</property>
+            <property name="height_request">22</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="max_length">255</property>
+            <property name="invisible_char">●</property>
+          </object>
+          <packing>
+            <property name="x">89</property>
+            <property name="y">35</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="txt_valor">
+            <property name="width_request">350</property>
+            <property name="height_request">22</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="invisible_char">●</property>
+          </object>
+          <packing>
+            <property name="x">90</property>
+            <property name="y">99</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkEntryCompletion" id="entrycompletion1"/>
+</interface>
