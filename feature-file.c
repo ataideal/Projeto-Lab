@@ -176,9 +176,10 @@ FILE * lerArquivo (char path[]){ /* Esta função recebe como parametro a url do
 
 int lerVendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendedores, faz o parse de cada vendedor do arquivo para o vetor, e retorna quantidade total de vendedores*/
 	int i=0;
-	while((fscanf(arquivo,"%d %d %s %s\n", &vendedores[i].id, &vendedores[i].idade ,vendedores[i].sexo,vendedores[i].cpf))!=EOF ){
-			fgets(vendedores[i].nome,50,arquivo);
-			//printf ("%d %d %s %s %s",vendedores[i].id, vendedores[i].idade, vendedores[i].nome,vendedores[i].sexo,vendedores[i].cpf);
+	while((fscanf(arquivo,"%d %d %s %s%[^\n]\n", &vendedores[i].id, &vendedores[i].idade ,vendedores[i].sexo,vendedores[i].cpf, vendedores[i].nome))!=EOF ){
+			//fgets(vendedores[i].nome,50,arquivo);
+			printf ("%d %d %s %s %s\n",vendedores[i].id, vendedores[i].idade, vendedores[i].nome,vendedores[i].sexo,vendedores[i].cpf);
+			
 			i++;
 	}
 	return i;
@@ -219,7 +220,7 @@ void salvarVendedor(Vendedor vendedor,Vendedor * vendedores,int * quant_vendedor
 	(*quant_vendedores) = (*quant_vendedores) + 1;
 	//Salvando no arquivo
 	FILE * fp = fopen ("Vendedores.txt","a");
-	int flag=fprintf (fp,"%d %d %s %s\n%s\n",vendedor.id, vendedor.idade,vendedor.sexo,vendedor.cpf,vendedor.nome);
+	int flag=fprintf (fp,"%d %d %s %s %s\n",vendedor.id, vendedor.idade,vendedor.sexo,vendedor.cpf,vendedor.nome);
 	fclose(fp);
 
 	if (flag<0)
