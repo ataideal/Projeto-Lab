@@ -31,7 +31,7 @@ int lerVendedores(Vendedor * vendedores,FILE * arquivo);
 int lerVendas(Venda * vendas,FILE * arquivo);
 int incr_vendedor();
 void salvarVendedor(Vendedor vendedor,Vendedor * vendedores,int * quant_vendedores);
-int incr_vendedor();
+int incr_venda();
 void salvarVenda(Venda venda,Venda * vendas,int * quant_vendas);
 //-------------------Protótipo das Funções---------------------------//
 
@@ -41,19 +41,21 @@ int main (){
 	arquivo = lerArquivo("Vendedores.txt");
 	Vendedor vendedores[30];
 	int quant_vendedores = 0;
-	quant_vendedores = lerVendedores(vendedores,arquivo);
+	if (arquivo!=NULL)
+		quant_vendedores = lerVendedores(vendedores,arquivo);
 	fclose(arquivo);
 	/*----------------------------------------------*/
 
 	/* --- Usando arquivo para ler as vendas --- */
 	arquivo = lerArquivo("Vendas.txt");
-	Venda vendas[30];
+	Venda vendas[300];
 	int quant_vendas = 0;
-	quant_vendas = lerVendas(vendas,arquivo);
+	if (arquivo!=NULL)
+		quant_vendas = lerVendas(vendas,arquivo);
 	fclose(arquivo);
 	/*-------------------------------------------*/
 
-	int i;
+	/*int i;
 	for(i = 0;i<quant_vendedores;i++){
 		printf ("Vendedores id:%d\n",vendedores[i].id);
 		printf ("Nome: %s\nIdade: %d\nSexo: %s\nCpf:%s\n",vendedores[i].nome,vendedores[i].idade,vendedores[i].sexo,vendedores[i].cpf);
@@ -62,8 +64,8 @@ int main (){
 	for(i = 0;i<quant_vendas;i++){
 		printf ("Vendas id:%d\n",vendas[i].id);
 		printf ("Vendedor id: %d\nData: %d/%d/%d\nValor: %f\nDescricao: %s\n",vendas[i].vendedorId,vendas[i].data.dia,vendas[i].data.mes,vendas[i].data.ano,vendas[i].valor,vendas[i].descricao);
-	}
-	
+	}*/
+	getch();
     /* ----- MENU ----*/
 	int opMenu;
     do
@@ -165,9 +167,45 @@ int main (){
                 getch();
                 break;
             case 5:
+            	printf("5 - Mostrar o numero do vendedor que mais vendeu em um determinado mes\n");
+            	printf ("Digite o mes: ");
+            	scanf ("%d",&mes);
+            	int vet_vendedores[30],aux_quant=0,aux_maior = 0;
+            	for (i=0;i<quant_vendedores;i++){
+            		for (j=0;j<quant_vendas;j++){
+            			if (vendedores[i].id == vendas[j].vendedorId && vendas[j].data.mes == mes){
+            				aux_quant++;
+            			}
+            		}
+            		vet_vendedores[i] = aux_quant;
+            		if (aux_quant > aux_maior)
+            			aux_maior = aux_quant;
+            		aux_quant = 0;
+            	}
+
+            	for (i=0;i<quant_vendedores;i++){
+            		if (vet_vendedores[i] == aux_maior){
+            			printf ("Vendedor %s id %d teve %d venda(s) nesse mes\n",vendedores[i].nome,vendedores[i].id,vet_vendedores[i]);
+            		}
+            	}
+            	getch();
                 break;
             case 6:
-            	printf ("Numero do mês com mais vendas:");
+            	printf ("Os meses com mais vendas foram:\n");
+            	int mes_vendas[13],maior_mes=0;
+            	for (j=0;j<quant_vendas;j++){
+            		mes_vendas[vendas[j].data.mes]++;
+            	}
+            	for (i=1;i<=12;i++){
+            		if(mes_vendas[i]>maior_mes)
+            			maior_mes = mes_vendas[i];
+            	}
+            	for (i=1;i<=12;i++){
+            		if(mes_vendas[i]==maior_mes)
+            			printf ("Mes %d com %d vendas\n",i,maior_mes);
+            	}
+
+            	getch();
                 break;
 			case 7:
 				printf ("Lista de Vendedores - %d\n",quant_vendedores);
