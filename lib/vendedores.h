@@ -3,8 +3,9 @@
 #include "data.h"
 
 #define UI_CADASTRO_VENDEDOR_FILE "ui/cadastro_vendedores.glade"
+#define UI__FILE ""
 
-GObject *txt_nome, *combo_sexo, *txt_cpf, *txt_dia, *txt_mes, *txt_ano;
+GObject *txt_nome, *combo_sexo, *txt_cpf, *txt_dia, *txt_mes, *txt_ano, *txt_valor;
 
 struct Vendedor /* Essa estrutura define um vendedor*/
 {
@@ -20,3 +21,4 @@ void open_edit_vendedor();
 void open_list_vendedor();
 void delete_vendedor();
 void relatorio_total_vendas_vendedor();
+int salvarVendedor(Vendedor vendedor,Vendedor * vendedores,int * quant_vendedores);

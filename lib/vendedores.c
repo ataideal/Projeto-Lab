@@ -1,4 +1,4 @@
-#include "vendedores.h"
+﻿#include "vendedores.h"
 
 void btn_salvar_vendedor(GtkWidget* button, GtkWindow *this_window){
   //aplicar logica de no máximo 10 vendedores
@@ -18,8 +18,11 @@ void btn_salvar_vendedor(GtkWidget* button, GtkWindow *this_window){
   new.data_nasc.ano = atoi((char*)nasc_ano);
 
   //colocar aqui para salvar vendedor
-
-  alert_info(this_window, "Salvo com sucesso!");
+  if(salvar_vendedor(new, ) >= 0){
+    alert_info(this_window, "Salvo com sucesso!");
+  }else{
+    alert_info(this_window, "Erro ao salvar!");
+  }
   gtk_widget_destroy(GTK_WIDGET(this_window));
 }
 
@@ -41,5 +44,24 @@ void open_list_vendedor(){
 }
 
 void relatorio_total_vendas_vendedor(){
-  
+ 
+}
+
+int salvarVendedor(Vendedor vendedor, Vendedor * vendedores,int * quant_vendedores){ /*Esta função recebe um vendedor e o escreve no arquivo */
+  //Atualizando vetor de vendedores
+  int aux = (*quant_vendedores);
+  vendedores[aux].id = vendedor.id;
+  vendedores[aux].idade = vendedor.idade;
+  strcpy(vendedores[aux].sexo,vendedor.sexo);
+  strcpy(vendedores[aux].cpf,vendedor.cpf);
+  strcpy(vendedores[aux].nome,vendedor.nome);
+  strcpy(vendedores[aux].nome,"\n");
+  //Atualizado quantiade de vendedores
+  (*quant_vendedores) = (*quant_vendedores) + 1;
+  //Salvando no arquivo
+  FILE * fp = fopen ("Vendedores.txt","a");
+  int is_ok = fprintf (fp,"%d %d %s %s %s\n",vendedor.id, vendedor.idade,vendedor.sexo,vendedor.cpf,vendedor.nome);
+  fclose(fp);
+
+  return is_ok;
 }
