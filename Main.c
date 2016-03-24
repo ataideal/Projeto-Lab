@@ -53,9 +53,9 @@ int main(int argc, char *argv[]){
 
 int ler_vendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendedores, faz o parse de cada vendedor do arquivo para o vetor, e retorna quantidade total de vendedores*/
   int i=0;
-  while((fscanf(arquivo,"%d %d %s %s%[^\n]\n", &vendedores[i].id, &vendedores[i].idade ,vendedores[i].sexo,vendedores[i].cpf, vendedores[i].nome))!=EOF ){
+  while((fscanf(arquivo,"%d %d %d %d %s %s%[^\n]\n", &vendedores[i].id, &vendedores[i].data_nasc.dia, &vendedores[i].data_nasc.mes, &vendedores[i].data_nasc.ano ,vendedores[i].sexo,vendedores[i].cpf, vendedores[i].nome))!=EOF ){
       //fgets(vendedores[i].nome,50,arquivo);
-      printf ("%d %d %s %s %s\n",vendedores[i].id, vendedores[i].idade, vendedores[i].nome,vendedores[i].sexo,vendedores[i].cpf);
+      printf ("%d %d %d %d %s %s %s\n",vendedores[i].id, &vendedores[i].data_nasc.dia, &vendedores[i].data_nasc.mes, vendedores[i].nome,vendedores[i].sexo,vendedores[i].cpf);
       i++;
   }
   return i;
