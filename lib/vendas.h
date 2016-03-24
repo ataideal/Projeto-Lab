@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <gtk/gtk.h>
 #include "data.h"
 
 #define UI_CADASTRO_VENDAS_FILE "ui/cadastro_vendas.glade"
