@@ -2,6 +2,7 @@
 #include <gtk/gtk.h>
 #include "data.h"
 
+#define VENDEDOR_FILE "Vendedores.txt"
 #define UI_CADASTRO_VENDEDOR_FILE "ui/cadastro_vendedores.glade"
 #define UI__FILE ""
 

@@ -11,17 +11,20 @@
 int incr_venda();
 int incr_vendedor();
 
-int lerVendedores(Vendedor * vendedores,FILE * arquivo);
-int lerVendas(Venda * vendas,FILE * arquivo);
+int ler_vendedores(Vendedor * vendedores, FILE * arquivo);
+int ler_vendas(Venda * vendas, FILE * arquivo);
+
+FILE * ler_arquivo (char path[]);
 
 int quantidade_vendedores;
+Vendedor vendedores[10];
 
 GtkBuilder *builder;
 GObject *window, *btn_cadastro_vendedor, *btn_cadastro_vendedor2, *btn_cadastro_vendas, *btn_cadastro_vendedor3;
 
 int main(int argc, char *argv[]){
   
-  quantidade_vendedores = 0;
+  quantidade_vendedores = ler_vendedores(vendedores, ler_arquivo(VENDEDOR_FILE));
   gtk_init (&argc, &argv);
 
   builder = gtk_builder_new();
@@ -50,10 +53,21 @@ int main(int argc, char *argv[]){
   return 0;
 }
 
+FILE * ler_arquivo (char path[]){ /* Esta função recebe como parametro a url do arquivo, faz a leitura do arquivo e retorna o ponteiro para função principal*/
+  FILE *fp;
+      fp = fopen (path, "r");
+      if (fp == NULL) {
+          printf ("Houve um erro ao abrir o arquivo.\n");
+          return NULL;
+      }
+      //printf ("Arquivo lido com sucesso\n");
+      return fp;
+}
+
 
 int ler_vendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendedores, faz o parse de cada vendedor do arquivo para o vetor, e retorna quantidade total de vendedores*/
   int i=0;
-  while((fscanf(arquivo,"%d %d %d %d %s %s%[^\n]\n", &vendedores[i].id, &vendedores[i].data_nasc.dia, &vendedores[i].data_nasc.mes, &vendedores[i].data_nasc.ano ,vendedores[i].sexo,vendedores[i].cpf, vendedores[i].nome))!=EOF ){
+  while((fscanf(arquivo,"%d %d %d %d %s %s%[^\n]", &vendedores[i].id, &vendedores[i].data_nasc.dia, &vendedores[i].data_nasc.mes, &vendedores[i].data_nasc.ano ,vendedores[i].sexo,vendedores[i].cpf, vendedores[i].nome))!=EOF ){
       //fgets(vendedores[i].nome,50,arquivo);
       printf ("%d %d %d %d %s %s %s\n",vendedores[i].id, &vendedores[i].data_nasc.dia, &vendedores[i].data_nasc.mes, vendedores[i].nome,vendedores[i].sexo,vendedores[i].cpf);
       i++;
