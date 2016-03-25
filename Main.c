@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
   g_signal_connect(G_OBJECT(btn_cadastro_vendas), "clicked", G_CALLBACK(open_new_vendas), (gpointer) window);
 
   btn_cadastro_vendedor2 = gtk_builder_get_object(builder, "btn_cadastro_vendedor2");
-  g_signal_connect(G_OBJECT(btn_cadastro_vendedor2), "clicked", G_CALLBACK(list_vendas), (gpointer) window);
+  g_signal_connect(G_OBJECT(btn_cadastro_vendedor2), "clicked", G_CALLBACK(open_mes_com_mais_vendas), (gpointer) window);
 
   btn_cadastro_vendedor3 = gtk_builder_get_object(builder, "btn_cadastro_vendedor3");
   g_signal_connect(G_OBJECT(btn_cadastro_vendedor3), "clicked", G_CALLBACK(open_relatorio_total_vendas_geral), (gpointer) window);

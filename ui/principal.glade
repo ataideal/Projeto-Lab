@@ -212,7 +212,7 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_cadastro_vendedor3">
-                <property name="label" translatable="yes">Relatório vendedor</property>
+                <property name="label" translatable="yes">Relatório Mes</property>
                 <property name="width_request">130</property>
                 <property name="height_request">130</property>
                 <property name="visible">True</property>

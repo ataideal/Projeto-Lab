@@ -26,11 +26,7 @@ void open_edit_vendedor();
 void open_list_vendedor();
 void delete_vendedor();
 void relatorio_total_vendas_vendedor();
-<<<<<<< HEAD
-int salvar_vendedor(Vendedor vendedor);
 int incr_vendedor();
-=======
 void open_relatorio_total_vendas_geral();
 void btn_buscar_relatorio_geral();
 int salvar_vendedor(Vendedor vendedor);
->>>>>>> 0779fcb66b6051c51f2225141eedc3935f887bf9
