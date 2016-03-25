@@ -22,7 +22,7 @@ struct Vendedor /* Essa estrutura define um vendedor*/
 };
 typedef struct Vendedor Vendedor;
 
-void btn_save_vendedor(GtkWidget* button, GtkWindow *this_window);
+void btn_salvar_vendedor(GtkWidget* button, GtkWindow *this_window);
 void open_new_vendedor();
 void open_edit_vendedor();
 void open_list_vendedor();

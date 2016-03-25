@@ -26,10 +26,10 @@ void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
 	new.data.ano = atoi((char*)ano);  
 
 
-	printf ("VALOR CHAR: %s\nVALOR FLOAT: %f\n", (char*)valor,new.valor);	
+	//printf ("VALOR CHAR: %s\nVALOR FLOAT: %f\n", (char*)valor,new.valor);	
 	setlocale(LC_ALL,"C");
-	printf("\n****** Verificando a localidade corrente ********\n\n");
- 	printf ("Localidade corrente: %s\n", setlocale(LC_ALL,NULL) );
+	//printf("\n****** Verificando a localidade corrente ********\n\n");
+ 	//printf ("Localidade corrente: %s\n", setlocale(LC_ALL,NULL) );
 
 
 	new.vendedorId = 1;
@@ -70,11 +70,11 @@ void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
 void open_new_vendas(){
 	builder_venda = gtk_builder_new (); 
   	gtk_builder_add_from_file(builder_venda, UI_CADASTRO_VENDAS_FILE, NULL);
-  	GObject *window_venda, *save_venda;
+  	GObject *window_vendas, *save_venda;
   	save_venda = gtk_builder_get_object(builder_venda, "btn_salvar");
-  	window_venda = gtk_builder_get_object(builder_venda, "cadastro_vendas");
-  	gtk_window_present (GTK_WINDOW(window_venda));
-  	g_signal_connect(G_OBJECT(save_venda), "clicked", G_CALLBACK(btn_salvar_venda), (gpointer) window_venda);
+  	window_vendas = gtk_builder_get_object(builder_venda, "cadastro_venda");
+  	gtk_window_present (GTK_WINDOW(window_vendas));
+  	g_signal_connect(G_OBJECT(save_venda), "clicked", G_CALLBACK(btn_salvar_venda), (gpointer) window_vendas);
 }
 
 void open_mes_com_mais_vendas(GtkWidget *button, GtkWindow *this_window){
