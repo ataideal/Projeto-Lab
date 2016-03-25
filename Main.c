@@ -51,7 +51,7 @@ int main(int argc, char *argv[]){
   g_signal_connect(G_OBJECT(btn_cadastro_vendedor2), "clicked", G_CALLBACK(open_mes_com_mais_vendas), (gpointer) window);
 
   btn_cadastro_vendedor3 = gtk_builder_get_object(builder, "btn_cadastro_vendedor3");
-  g_signal_connect(G_OBJECT(btn_cadastro_vendedor3), "clicked", G_CALLBACK(open_relatorio_total_vendas_geral), (gpointer) window);
+  g_signal_connect(G_OBJECT(btn_cadastro_vendedor3), "clicked", G_CALLBACK(open_list_vendas_vendedor_mes), (gpointer) window);
 
   gtk_window_present(GTK_WINDOW(window));
 
@@ -75,7 +75,7 @@ FILE * ler_arquivo (char path[]){ /* Esta função recebe como parametro a url d
 int ler_vendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendedores, faz o parse de cada vendedor do arquivo para o vetor, e retorna quantidade total de vendedores*/
   int i=0;
   printf ("Vendedores:\n");
-  while((fscanf(arquivo,"%d %d %d %d %s %s%[^\n]", &vendedores[i].id, &vendedores[i].data_nasc.dia, &vendedores[i].data_nasc.mes, &vendedores[i].data_nasc.ano ,vendedores[i].sexo,vendedores[i].cpf, vendedores[i].nome))!=EOF ){
+  while((fscanf(arquivo,"%d %d %d %d %s %s %[^\n]", &vendedores[i].id, &vendedores[i].data_nasc.dia, &vendedores[i].data_nasc.mes, &vendedores[i].data_nasc.ano ,vendedores[i].sexo,vendedores[i].cpf, vendedores[i].nome))!=EOF ){
       //fgets(vendedores[i].nome,50,arquivo);
       printf ("%d %d %d %d %s %s %s\n",vendedores[i].id, vendedores[i].data_nasc.dia, vendedores[i].data_nasc.mes, vendedores[i].data_nasc.ano,vendedores[i].nome,vendedores[i].sexo,vendedores[i].cpf);
       i++;
@@ -86,7 +86,7 @@ int ler_vendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função receb
 int ler_vendas(Venda * vendas,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendas, faz o parse de cada venda do arquivo para o vetor, e retorna quantidade total de vendas*/
   int i=0;
   printf ("Vendas:\n");
-  while((fscanf(arquivo,"%d %d %d %d %d %f%[^\n]", &vendas[i].id, &vendas[i].vendedorId, &vendas[i].data.dia,&vendas[i].data.mes,&vendas[i].data.ano,&vendas[i].valor,vendas[i].descricao))!=EOF ){
+  while((fscanf(arquivo,"%d %d %d %d %d %f %[^\n]", &vendas[i].id, &vendas[i].vendedorId, &vendas[i].data.dia,&vendas[i].data.mes,&vendas[i].data.ano,&vendas[i].valor,vendas[i].descricao))!=EOF ){
     //fgets (vendas[i].descricao,255,arquivo);
     printf ("%d %d %d %d %d %f %s\n", vendas[i].id, vendas[i].vendedorId, vendas[i].data.dia, vendas[i].data.mes, vendas[i].data.ano,vendas[i].valor,vendas[i].descricao);
     i++;
