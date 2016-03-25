@@ -16,15 +16,19 @@ int ler_vendas(Venda * vendas, FILE * arquivo);
 
 FILE * ler_arquivo (char path[]);
 
-int quantidade_vendedores;
+int quantidade_vendedores, quantidade_vendas;
+
 Vendedor vendedores[10];
+Venda vendas[300];
 
 GtkBuilder *builder;
 GObject *window, *btn_cadastro_vendedor, *btn_cadastro_vendedor2, *btn_cadastro_vendas, *btn_cadastro_vendedor3;
 
 int main(int argc, char *argv[]){
-  
+
+  quantidade_vendas = ler_vendas(vendas, ler_arquivo(VENDAS_FILE));
   quantidade_vendedores = ler_vendedores(vendedores, ler_arquivo(VENDEDOR_FILE));
+
   gtk_init (&argc, &argv);
 
   builder = gtk_builder_new();
@@ -43,8 +47,8 @@ int main(int argc, char *argv[]){
   btn_cadastro_vendedor2 = gtk_builder_get_object(builder, "btn_cadastro_vendedor2");
   g_signal_connect(G_OBJECT(btn_cadastro_vendedor2), "clicked", G_CALLBACK(list_vendas), (gpointer) window);
 
-  btn_cadastro_vendedor2 = gtk_builder_get_object(builder, "btn_cadastro_vendedor3");
-  g_signal_connect(G_OBJECT(btn_cadastro_vendedor3), "clicked", G_CALLBACK(relatorio_total_vendas_vendedor), (gpointer) window);
+  btn_cadastro_vendedor3 = gtk_builder_get_object(builder, "btn_cadastro_vendedor3");
+  g_signal_connect(G_OBJECT(btn_cadastro_vendedor3), "clicked", G_CALLBACK(open_relatorio_total_vendas_geral), (gpointer) window);
 
   gtk_window_present(GTK_WINDOW(window));
 

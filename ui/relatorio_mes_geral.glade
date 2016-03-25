@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkListStore" id="lista">
+    <columns>
+      <!-- column-name column0 -->
+      <column type="gchararray"/>
+      <!-- column-name column1 -->
+      <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkWindow" id="window1">
+    <property name="width_request">500</property>
+    <property name="height_request">400</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkLayout" id="layout1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkTreeView" id="treeview1">
+            <property name="width_request">350</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="margin_right">131</property>
+            <property name="model">lista</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection" id="treeview-selection1"/>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="tvcolumn0">
+                <property name="title">Vendedor</property>
+                <property name="expand">True</property>
+                <property name="clickable">True</property>
+                <property name="alignment">0.5</property>
+                <property name="reorderable">True</property>
+                <property name="sort_indicator">True</property>
+                <property name="sort_column_id">0</property>
+                <child>
+                  <object class="GtkCellRendererText" id="tvcell0"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="tvcolumn1">
+                <property name="title">Quantidade de Vendas</property>
+                <property name="expand">True</property>
+                <property name="clickable">True</property>
+                <property name="alignment">0.5</property>
+                <property name="reorderable">True</property>
+                <property name="sort_indicator">True</property>
+                <property name="sort_column_id">0</property>
+                <child>
+                  <object class="GtkCellRendererText" id="tvcell1"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">48</property>
+            <property name="y">75</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label1">
+            <property name="width_request">100</property>
+            <property name="height_request">20</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Selecione o mês:</property>
+          </object>
+          <packing>
+            <property name="x">16</property>
+            <property name="y">30</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="comboboxtext1">
+            <property name="width_request">100</property>
+            <property name="height_request">28</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="entry_text_column">0</property>
+            <property name="id_column">1</property>
+            <items>
+              <item translatable="yes">JANEIRO</item>
+              <item translatable="yes">FEVEREIRO</item>
+              <item translatable="yes">MARÇO</item>
+              <item translatable="yes">ABRIL</item>
+              <item translatable="yes">MAIO</item>
+              <item translatable="yes">JUNHO</item>
+              <item translatable="yes">JULHO</item>
+              <item translatable="yes">AGOSTO</item>
+              <item translatable="yes">SETEMBRO</item>
+              <item translatable="yes">OUTUBRO</item>
+              <item translatable="yes">NOVEMBRO</item>
+              <item translatable="yes">DEZEMBRO</item>
+            </items>
+          </object>
+          <packing>
+            <property name="x">122</property>
+            <property name="y">24</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_buscar">
+            <property name="label" translatable="yes">Buscar</property>
+            <property name="width_request">100</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">257</property>
+            <property name="y">23</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
