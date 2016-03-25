@@ -28,8 +28,10 @@ void btn_salvar_vendedor(GtkWidget* button, GtkWindow *this_window){
   new.data_nasc.mes = atoi((char*)nasc_mes);
   new.data_nasc.ano = atoi((char*)nasc_ano);  
 
+
+  // ---- Validações ----
   int bissexto=0;
-  if (( bissexto % 4 == 0 && bissexto % 100 != 0 ) || bissexto % 400 == 0)
+  if (( new.data_nasc.ano % 4 == 0 && new.data_nasc.ano  % 100 != 0 ) || new.data_nasc.ano  % 400 == 0)
     bissexto=1;
   int flag_mes;
   if(new.data_nasc.mes == 1 ||new.data_nasc.mes == 3 ||new.data_nasc.mes == 5 ||new.data_nasc.mes == 7 || new.data_nasc.mes == 8 || new.data_nasc.mes == 10 || new.data_nasc.mes == 12)
@@ -39,8 +41,15 @@ void btn_salvar_vendedor(GtkWidget* button, GtkWindow *this_window){
   else
     flag_mes=0;
 
+  int digito=0,i;
+  int a = strlen(new.cpf);
+  for (i=0;i<a;i++){
+      if(isdigit(new.cpf[i]))
+        digito++;
+  }
 
-  if(strlen(new.cpf)!=11)
+
+  if(digito!=11)
     alert_error(this_window,"Verifique o cpf! (somente numeros)");
   else if (quantidade_vendedores ==10)
     alert_error(this_window,"Já existem 10 vendedores!");
@@ -90,7 +99,7 @@ int salvar_vendedor(Vendedor vendedor){ /*Esta função recebe um vendedor e o e
   // strcpy(vendedores[aux].nome,vendedor.nome);
   // strcpy(vendedores[aux].nome,"\n");
   //Atualizado quantiade de vendedores
-  vendedor.id = quantidade_vendedores + 1;
+  vendedor.id = incr_vendedor();
   quantidade_vendedores += 1;
   //Salvando no arquivo
   int is_ok = -1;
@@ -100,4 +109,16 @@ int salvar_vendedor(Vendedor vendedor){ /*Esta função recebe um vendedor e o e
     fclose(fp_vendedores);
   }
   return is_ok;
+}
+
+int incr_vendedor(){ /*Esta função incrementa o id do vendedor e o retorna */
+  FILE * fp = fopen ("incr_vendedor.txt", "r");
+  int incr;
+  fscanf(fp,"%d",&incr);
+  //printf ("%d\n",incr);
+  incr++;
+  freopen("incr_vendedor.txt", "w+",fp);
+  fprintf (fp,"%d",incr);
+  fclose(fp);
+  return incr;
 }

@@ -16,8 +16,9 @@ int ler_vendas(Venda * vendas, FILE * arquivo);
 
 FILE * ler_arquivo (char path[]);
 
-int quantidade_vendedores;
+int quantidade_vendedores,quantidade_vendas;
 Vendedor vendedores[10];
+Venda vendas[30];
 
 GtkBuilder *builder;
 GObject *window, *btn_cadastro_vendedor, *btn_cadastro_vendedor2, *btn_cadastro_vendas, *btn_cadastro_vendedor3;
@@ -25,7 +26,11 @@ GObject *window, *btn_cadastro_vendedor, *btn_cadastro_vendedor2, *btn_cadastro_
 int main(int argc, char *argv[]){
   
   quantidade_vendedores = ler_vendedores(vendedores, ler_arquivo(VENDEDOR_FILE));
+  quantidade_vendas = ler_vendas(vendas,ler_arquivo("Vendas.txt"));
+
   gtk_init (&argc, &argv);
+
+  
 
   builder = gtk_builder_new();
   gtk_builder_add_from_file(builder, UI_FILE, NULL);
@@ -79,7 +84,7 @@ int ler_vendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função receb
 int ler_vendas(Venda * vendas,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendas, faz o parse de cada venda do arquivo para o vetor, e retorna quantidade total de vendas*/
   int i=0;
   printf ("Vendas:\n");
-  while((fscanf(arquivo,"%d %d %d %d %d %f%[^\n]\n", &vendas[i].id, &vendas[i].vendedorId, &vendas[i].data.dia,&vendas[i].data.mes,&vendas[i].data.ano,&vendas[i].valor,vendas[i].descricao))!=EOF ){
+  while((fscanf(arquivo,"%d %d %d %d %d %f%[^\n]", &vendas[i].id, &vendas[i].vendedorId, &vendas[i].data.dia,&vendas[i].data.mes,&vendas[i].data.ano,&vendas[i].valor,vendas[i].descricao))!=EOF ){
     //fgets (vendas[i].descricao,255,arquivo);
     printf ("%d %d %d %d %d %f %s\n", vendas[i].id, vendas[i].vendedorId, vendas[i].data.dia, vendas[i].data.mes, vendas[i].data.ano,vendas[i].valor,vendas[i].descricao);
     i++;
@@ -87,27 +92,3 @@ int ler_vendas(Venda * vendas,FILE * arquivo){ /* Esta função recebe o arquivo
   return i;
 }
 
-
-int incr_vendedor(){ /*Esta função incrementa o id do vendedor e o retorna */
-  FILE * fp = fopen ("incr_vendedor.txt", "r");
-  int incr;
-  fscanf(fp,"%d",&incr);
-  //printf ("%d\n",incr);
-  incr++;
-  freopen("incr_vendedor.txt", "w+",fp);
-  fprintf (fp,"%d",incr);
-  fclose(fp);
-  return incr;
-}
-
-int incr_venda(){ /*Esta função incrementa o id da venda e o retorna */
-  FILE * fp = fopen ("incr_venda.txt", "r");
-  int incr;
-  fscanf(fp,"%d",&incr);
-  //printf ("%d\n",incr);
-  incr++;
-  freopen("incr_venda.txt", "w+",fp);
-  fprintf (fp,"%d",incr);
-  fclose(fp);
-  return incr;
-}

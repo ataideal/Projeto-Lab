@@ -25,3 +25,4 @@ void open_list_vendedor();
 void delete_vendedor();
 void relatorio_total_vendas_vendedor();
 int salvar_vendedor(Vendedor vendedor);
+int incr_vendedor();
