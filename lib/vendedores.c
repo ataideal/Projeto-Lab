@@ -150,7 +150,7 @@ void open_list_vendas_vendedor_mes(){
   for (i=0;i<quantidade_vendedores;i++){
     char msg[300];
     sprintf(msg, "%s - %d", vendedores[i].nome, vendedores[i].id);
-    printf("%s\n", msg);
+    //printf("%s\n", msg);
     gtk_list_store_append (store, &iter);
     gtk_list_store_set(store, &iter, 0, msg, -1); 
   }

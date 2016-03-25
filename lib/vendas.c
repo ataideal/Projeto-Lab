@@ -1,38 +1,52 @@
 #include "vendas.h"
+#include "vendedores.h"
 #include <locale.h>
 
 extern int quantidade_vendas;
+extern int quantidade_vendedores;
 extern Venda vendas[300];
+extern Vendedor vendedores[10];
 void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
 	const gchar *vendedorId, *descricao, *valor, *dia, *mes, *ano;
 
 	Venda new;
+	txt_vendedor = gtk_builder_get_object(builder_venda,"txt_vendas");
 	txt_descricao = gtk_builder_get_object(builder_venda, "txt_descricao");
 	txt_valor = gtk_builder_get_object(builder_venda, "txt_valor");
 	txt_data = gtk_builder_get_object(builder_venda, "txt_data");
 	txt_mes = gtk_builder_get_object(builder_venda, "txt_mes");
 	txt_ano = gtk_builder_get_object(builder_venda, "txt_ano");
 
+	vendedorId = gtk_entry_get_text(GTK_ENTRY(txt_vendedor));
 	descricao =  gtk_entry_get_text(GTK_ENTRY(txt_descricao));
 	valor = gtk_entry_get_text(GTK_ENTRY(txt_valor));
 	dia =  gtk_entry_get_text(GTK_ENTRY(txt_data));
 	mes =  gtk_entry_get_text(GTK_ENTRY(txt_mes));
 	ano =  gtk_entry_get_text(GTK_ENTRY(txt_ano));
 
+	int i,j=0,id;
+	char id_aux[300];
+	char * aux = (char *) vendedorId;
+  	for(i = (strrchr(aux, '-') - aux) + 2; i <= strlen(aux)-1 ; i++){
+    	id_aux[j] = aux[i];
+    	j++;
+  	}
+  	id_aux[j] = '\0';
+  
+  	id = atoi(id_aux);
+
 	sprintf(new.descricao, "%s", (char *)descricao);
 	new.valor = atof((char*)valor);
 	new.data.dia = atoi((char*)dia);
 	new.data.mes = atoi((char*)mes);
 	new.data.ano = atoi((char*)ano);  
-
+	new.vendedorId = id;
+	//printf ("VENDEDOR ID: %d\n",new.vendedorId);
 
 	//printf ("VALOR CHAR: %s\nVALOR FLOAT: %f\n", (char*)valor,new.valor);	
 	setlocale(LC_ALL,"C");
 	//printf("\n****** Verificando a localidade corrente ********\n\n");
  	//printf ("Localidade corrente: %s\n", setlocale(LC_ALL,NULL) );
-
-
-	new.vendedorId = 1;
 
 	int bissexto=0;
   	if (( new.data.ano % 4 == 0 && new.data.ano  % 100 != 0 ) || new.data.ano  % 400 == 0)
@@ -73,6 +87,30 @@ void open_new_vendas(){
   	GObject *window_vendas, *save_venda;
   	save_venda = gtk_builder_get_object(builder_venda, "btn_salvar");
   	window_vendas = gtk_builder_get_object(builder_venda, "cadastro_venda");
+
+  	txt_nome_auto = gtk_builder_get_object(builder_venda, "txt_vendas");
+  	entry_comp = gtk_entry_completion_new();
+  
+  	GtkTreeIter iter;
+  	if(store != NULL) gtk_list_store_clear (store);
+
+  	store = gtk_list_store_new(1, G_TYPE_STRING);
+
+  	int i;
+
+  	for (i=0;i<quantidade_vendedores;i++){
+	    char msg[300];
+	    sprintf(msg, "%s - %d", vendedores[i].nome, vendedores[i].id);
+	    //printf("%s\n", msg);
+	    gtk_list_store_append (store, &iter);
+	    gtk_list_store_set(store, &iter, 0, msg, -1); 
+  	}
+  
+  	gtk_entry_completion_set_model(entry_comp, GTK_TREE_MODEL(store));
+  	txt_nome_auto = gtk_builder_get_object(builder_venda, "txt_vendas");
+  	gtk_entry_completion_set_text_column(entry_comp, 0);
+  	gtk_entry_set_completion(GTK_ENTRY(txt_nome_auto), entry_comp);
+
   	gtk_window_present (GTK_WINDOW(window_vendas));
   	g_signal_connect(G_OBJECT(save_venda), "clicked", G_CALLBACK(btn_salvar_venda), (gpointer) window_vendas);
 }
