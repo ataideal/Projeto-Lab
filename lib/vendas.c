@@ -67,6 +67,7 @@ void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
 }
 
 void open_new_vendas(){
+<<<<<<< HEAD
 
 	builder_venda = gtk_builder_new (); 
   	gtk_builder_add_from_file(builder_venda, UI_CADASTRO_VENDAS_FILE, NULL);
@@ -75,6 +76,13 @@ void open_new_vendas(){
   	window_venda = gtk_builder_get_object(builder_venda, "cadastro_vendas");
   	gtk_window_present (GTK_WINDOW(window_venda));
   	g_signal_connect(G_OBJECT(save_venda), "clicked", G_CALLBACK(btn_salvar_venda), (gpointer) window_venda);
+=======
+	builder_vendas = gtk_builder_new();
+	gtk_builder_add_from_file(builder_vendas, UI_CADASTRO_VENDAS_FILE, NULL);
+	window_vendas = gtk_builder_get_object(builder_vendas, "cadastro_vendas");
+	btn_salvar = gtk_builder_get_object(builder_vendas, "btn_salvar");
+	g_signal_connect(btn_salvar, "clicked", G_CALLBACK(btn_salvar_venda), (gpointer) window_vendas); 
+>>>>>>> 0779fcb66b6051c51f2225141eedc3935f887bf9
 }
 
 void list_vendas(){

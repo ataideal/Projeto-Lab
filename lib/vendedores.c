@@ -1,6 +1,66 @@
-﻿#include "vendedores.h"
+﻿#include "vendas.h"
+#include "vendedores.h"
 
 extern int quantidade_vendedores;
+extern int quantidade_vendas;
+extern Venda vendas[300];
+extern Vendedor vendedores[10];
+
+
+void btn_buscar_relatorio_geral(){
+  
+  const gchar *mes;
+  GtkTreeIter iter;
+  if(store != NULL) gtk_list_store_clear (store);
+
+  store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
+
+  combo_mes = gtk_builder_get_object(builder_relatorio_geral, "comboboxtext1");
+  tree_relatorio_geral = gtk_builder_get_object(builder_relatorio_geral, "treeview1");
+  mes = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_mes));
+  
+  int __mes = 1;
+
+  if(strcmp("DEZEMBRO", (char *) mes) == 0){
+    __mes = 12;
+  }else if(strcmp("NOVEMBRO", (char *) mes) == 0){
+    __mes = 11;
+  }else if(strcmp("OUTUBRO", (char *) mes) == 0){
+    __mes = 10;
+  }else if(strcmp("SETEMBRO", (char *) mes) == 0){
+    __mes = 9;
+  }else if(strcmp("AGOSTO", (char *) mes) == 0){
+    __mes = 8;
+  }else if(strcmp("JULHO", (char *) mes) == 0){
+    __mes = 7;
+  }else if(strcmp("JUNHO", (char *) mes) == 0){
+    __mes = 6;
+  }else if(strcmp("MAIO", (char *) mes) == 0){
+    __mes = 5;
+  }else if(strcmp("ABRIL", (char *) mes) == 0){
+    __mes = 4;
+  }else if(strcmp("MARÇO", (char *) mes) == 0){
+    __mes = 3;
+  }else if(strcmp("FEVEREIRO", (char *) mes) == 0){
+    __mes = 2;
+  }else if(strcmp("JANEIRO", (char *) mes) == 0){
+    __mes = 1;
+  }
+  printf("%d\n", __mes);
+  int vet_vendedores[30],aux_quant=0,aux_maior = 0, i, j;
+  for (i=0;i<quantidade_vendedores;i++){
+    for (j=0;j<quantidade_vendas;j++){
+      if (vendedores[i].id == vendas[j].vendedorId && vendas[j].data.mes == __mes){
+          aux_quant++;
+      }
+    }
+    vet_vendedores[i] = aux_quant;
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set(store, &iter, 0, vendedores[i].nome, 1, vet_vendedores[i], -1); 
+  }
+
+  gtk_tree_view_set_model(GTK_TREE_VIEW(tree_relatorio_geral), GTK_TREE_MODEL (store));
+}
 
 void btn_salvar_vendedor(GtkWidget* button, GtkWindow *this_window){
   //aplicar logica de no máximo 10 vendedores
@@ -81,13 +141,25 @@ void open_new_vendedor(){
   g_signal_connect(G_OBJECT(save_vendedor), "clicked", G_CALLBACK(btn_salvar_vendedor), (gpointer) window_vendedores);
 }
 
+void open_relatorio_total_vendas_geral(){
+  builder_relatorio_geral = gtk_builder_new();
+  gtk_builder_add_from_file(builder_relatorio_geral, UI_RELATORIO_GERAL_FILE, NULL);
+  GObject *window_relatorio, *buscar;
+  buscar = gtk_builder_get_object(builder_relatorio_geral, "btn_buscar");
+  window_relatorio = gtk_builder_get_object(builder_relatorio_geral, "window1");
+  
+  gtk_window_present (GTK_WINDOW(window_relatorio));
+  g_signal_connect(G_OBJECT(buscar), "clicked", G_CALLBACK(btn_buscar_relatorio_geral), (gpointer) window_relatorio);
+}
+
 void open_list_vendedor(){
 
 }
 
 void relatorio_total_vendas_vendedor(){
- 
+  
 }
+
 
 int salvar_vendedor(Vendedor vendedor){ /*Esta função recebe um vendedor e o escreve no arquivo */
   //Atualizando vetor de vendedores
