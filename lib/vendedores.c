@@ -86,15 +86,40 @@ void btn_salvar_vendedor(GtkWidget* button, GtkWindow *this_window){
   sprintf(new.cpf, "%s", (char *)cpf);
   new.data_nasc.dia = atoi((char*)nasc_dia);
   new.data_nasc.mes = atoi((char*)nasc_mes);
-  new.data_nasc.ano = atoi((char*)nasc_ano);
+  new.data_nasc.ano = atoi((char*)nasc_ano);  
 
-  //colocar aqui para salvar vendedor
-  if(salvar_vendedor(new) >= 0){
-    alert_info(this_window, "Salvo com sucesso!");
-  }else{
-    alert_info(this_window, "Erro ao salvar!");
-  }
-  gtk_widget_destroy(GTK_WIDGET(this_window));
+  int bissexto=0;
+  if (( bissexto % 4 == 0 && bissexto % 100 != 0 ) || bissexto % 400 == 0)
+    bissexto=1;
+  int flag_mes;
+  if(new.data_nasc.mes == 1 ||new.data_nasc.mes == 3 ||new.data_nasc.mes == 5 ||new.data_nasc.mes == 7 || new.data_nasc.mes == 8 || new.data_nasc.mes == 10 || new.data_nasc.mes == 12)
+    flag_mes=2;
+  else if (new.data_nasc.mes == 4 ||new.data_nasc.mes == 6 ||new.data_nasc.mes == 9 ||new.data_nasc.mes == 11)
+    flag_mes=1;
+  else
+    flag_mes=0;
+
+
+  if(strlen(new.cpf)!=11)
+    alert_error(this_window,"Verifique o cpf! (somente numeros)");
+  else if (quantidade_vendedores ==10)
+    alert_error(this_window,"Já existem 10 vendedores!");
+  else if (new.data_nasc.ano<=0)
+    alert_error(this_window,"Corriga o ano de nascimento!");
+  else if (new.data_nasc.mes <1  ||  new.data_nasc.mes > 12)
+    alert_error(this_window,"Corriga o mês de nascimento!");
+  else if ((new.data_nasc.dia<1 || new.data_nasc.dia>31 && flag_mes==2) || (new.data_nasc.dia<1 || new.data_nasc.dia>30 && flag_mes==1) || (new.data_nasc.dia<1 || new.data_nasc.dia>28 && flag_mes==0 && bissexto==1) || (new.data_nasc.dia<1 || new.data_nasc.dia>27 && flag_mes==0 && bissexto==0))
+    alert_error(this_window,"Corriga o dia de nascimento!");
+  else{
+    //colocar aqui para salvar vendedor
+      if(salvar_vendedor(new) >= 0){
+        alert_info(this_window, "Salvo com sucesso!");
+      }else{
+        alert_info(this_window, "Erro ao salvar!");
+      }
+      gtk_widget_destroy(GTK_WIDGET(this_window));
+  }  
+
 }
 
 void open_new_vendedor(){
