@@ -6,6 +6,14 @@ extern int quantidade_vendas;
 extern Venda vendas[300];
 extern Vendedor vendedores[10];
 
+void open_relatorio_total_vendas_vendedor(){
+
+}
+
+void btn_buscar_total_vendas_vendedor(){
+
+}
+
 void btn_buscar_relatorio_geral(){
   
   const gchar *mes;
