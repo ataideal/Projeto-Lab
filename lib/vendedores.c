@@ -216,7 +216,9 @@ int salvar_vendedor(Vendedor vendedor){ /*Esta função recebe um vendedor e o e
   // strcpy(vendedores[aux].nome,vendedor.nome);
   // strcpy(vendedores[aux].nome,"\n");
   //Atualizado quantiade de vendedores
+
   vendedor.id = incr_vendedor();
+  vendedores[quantidade_vendedores] = vendedor;
   quantidade_vendedores += 1;
   //Salvando no arquivo
   int is_ok = -1;

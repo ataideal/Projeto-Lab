@@ -70,7 +70,7 @@ void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
     	alert_error(this_window,"Corriga o dia!");
     else{
 	    if(salvar_venda(new) >= 0){
-	      alert_info(this_window, "Salvo com sucesso!");
+	      alert_info(this_window, "Salvo com sucesso!");	      
 	    }else{
 	      alert_info(this_window, "Erro ao salvar!");
 	    }
@@ -171,6 +171,7 @@ int salvar_venda(Venda venda){ /*Esta função recebe um venda e o escreve no ar
 	*/
 	//Atualizado quantidade de vendas
 	venda.id = incr_venda();
+	vendas[quantidade_vendas] = venda;
 	quantidade_vendas ++;
 
 	int is_ok = -1;
