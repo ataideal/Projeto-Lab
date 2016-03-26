@@ -39,7 +39,7 @@ int retornar_mes_valor(char* mes){
     __mes = 5;
   }else if(strcmp("ABRIL", mes) == 0){
     __mes = 4;
-  }else if(strcmp("MARÇO", mes) == 0){
+  }else if(strcmp("MARCO", mes) == 0){
     __mes = 3;
   }else if(strcmp("FEVEREIRO", mes) == 0){
     __mes = 2;

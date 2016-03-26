@@ -178,7 +178,7 @@ void relatorio_total_vendas_vendedor_mes(GtkWidget* button, GtkWindow *this_wind
   tree_relatorio_meses = gtk_builder_get_object(builder_vendedor, "treeview1");
 
   if(strcmp(mes, "") == 0 || mes == NULL) alert_info(this_window, "Necessário escolher o mês");
-
+  printf("%s\n", mes);
   int __mes = retornar_mes_valor((char *) mes);
   int i, j = 0;
   int id;
@@ -192,10 +192,10 @@ void relatorio_total_vendas_vendedor_mes(GtkWidget* button, GtkWindow *this_wind
   
   id = atoi(id_aux);
   printf("%d\n", id);
-  
+  printf("%d\n", __mes);
   for (i=0;i<quantidade_vendedores;i++){
     for (j=0;j<quantidade_vendas;j++){
-      if (id == vendas[j].vendedorId && vendas[j].data.mes == __mes){
+      if (id == vendas[j].vendedorId && id == vendedores[i].id && vendas[j].data.mes == __mes){
         gtk_list_store_append (_store, &iter);
         gtk_list_store_set(_store, &iter, 0, vendas[j].descricao, 1, vendas[j].valor, -1);      
       }
