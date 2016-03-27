@@ -185,7 +185,14 @@ void relatorio_total_vendas_vendedor_mes(GtkWidget* button, GtkWindow *this_wind
   nome = gtk_entry_get_text(GTK_ENTRY(txt_nome_auto));
   tree_relatorio_meses = gtk_builder_get_object(builder_vendedor, "treeview1");
 
-  if(strcmp(mes, "") == 0 || mes == NULL) alert_info(this_window, "Necessário escolher o mês");
+  if(mes == NULL){
+    alert_info(this_window, "Necessário escolher o mês");
+    return ;
+  }else if(strcmp((char *) nome, "") == 0){
+    alert_info(this_window, "Escolha um vendedor");
+    return ;
+  }
+
   printf("%s\n", mes);
   int __mes = retornar_mes_valor((char *) mes);
   int i, j = 0;
