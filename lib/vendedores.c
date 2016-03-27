@@ -30,8 +30,9 @@ void btn_buscar_relatorio_geral(){
 
   
   printf("%d\n", __mes);
-  int vet_vendedores[30],aux_quant=0,aux_maior = 0, i, j;
+  int vet_vendedores[30],aux_maior = 0, i, j;
   for (i=0;i<quantidade_vendedores;i++){
+    int aux_quant=0;
     for (j=0;j<quantidade_vendas;j++){
       if (vendedores[i].id == vendas[j].vendedorId && vendas[j].data.mes == __mes){
           aux_quant++;
