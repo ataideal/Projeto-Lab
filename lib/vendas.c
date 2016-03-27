@@ -2,11 +2,13 @@
 #include "vendedores.h"
 #include <locale.h>
 
+extern int max_vendas;
 extern int quantidade_vendas;
 extern int quantidade_vendedores;
-extern Venda vendas[300];
+extern Venda * vendas;
 extern Vendedor vendedores[10];
 void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
+  setlocale(LC_ALL,"C");
 	const gchar *vendedorId, *descricao, *valor, *dia, *mes, *ano;
 
 	Venda new;
@@ -36,15 +38,14 @@ void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
   	id = atoi(id_aux);
 
 	sprintf(new.descricao, "%s", (char *)descricao);
+
 	new.valor = atof((char*)valor);
 	new.data.dia = atoi((char*)dia);
 	new.data.mes = atoi((char*)mes);
 	new.data.ano = atoi((char*)ano);  
 	new.vendedorId = id;
 	//printf ("VENDEDOR ID: %d\n",new.vendedorId);
-
-	//printf ("VALOR CHAR: %s\nVALOR FLOAT: %f\n", (char*)valor,new.valor);	
-	setlocale(LC_ALL,"C");
+  //printf ("VALOR CHAR: %s\nVALOR FLOAT: %f\n", (char*)valor,new.valor); 
 	//printf("\n****** Verificando a localidade corrente ********\n\n");
  	//printf ("Localidade corrente: %s\n", setlocale(LC_ALL,NULL) );
 
@@ -171,6 +172,11 @@ int salvar_venda(Venda venda){ /*Esta função recebe um venda e o escreve no ar
 	*/
 	//Atualizado quantidade de vendas
 	venda.id = incr_venda();
+
+  if(quantidade_vendas+1 >= max_vendas){
+      max_vendas+=1;
+      vendas = (Venda*)realloc(vendas,sizeof(Venda)*max_vendas);
+  }
 	vendas[quantidade_vendas] = venda;
 	quantidade_vendas ++;
 

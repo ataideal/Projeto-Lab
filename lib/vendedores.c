@@ -3,7 +3,7 @@
 
 extern int quantidade_vendedores;
 extern int quantidade_vendas;
-extern Venda vendas[300];
+extern Venda * vendas;
 extern Vendedor vendedores[10];
 
 void open_relatorio_total_vendas_vendedor(){

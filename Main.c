@@ -11,24 +11,26 @@
 int incr_venda();
 int incr_vendedor();
 
-int ler_vendedores(Vendedor * vendedores, FILE * arquivo);
-int ler_vendas(Venda * vendas, FILE * arquivo);
+int ler_vendedores(FILE * arquivo);
+int ler_vendas(FILE * arquivo);
 
 FILE * ler_arquivo (char path[]);
 
+int max_vendas = 1;
 
 int quantidade_vendedores, quantidade_vendas;
 
 Vendedor vendedores[10];
-Venda vendas[300];
+Venda * vendas;
 
 GtkBuilder *builder;
 GObject *window, *btn_cadastro_vendedor, *btn_cadastro_vendedor2, *btn_cadastro_vendas, *btn_cadastro_vendedor3;
 
 int main(int argc, char *argv[]){
 
-  quantidade_vendas = ler_vendas(vendas, ler_arquivo(VENDAS_FILE));
-  quantidade_vendedores = ler_vendedores(vendedores, ler_arquivo(VENDEDOR_FILE));
+  vendas = (Venda*)malloc(sizeof(Venda)*max_vendas);
+  quantidade_vendas = ler_vendas(ler_arquivo(VENDAS_FILE));
+  quantidade_vendedores = ler_vendedores(ler_arquivo(VENDEDOR_FILE));
 
   gtk_init (&argc, &argv);
 
@@ -72,7 +74,7 @@ FILE * ler_arquivo (char path[]){ /* Esta função recebe como parametro a url d
 }
 
 
-int ler_vendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendedores, faz o parse de cada vendedor do arquivo para o vetor, e retorna quantidade total de vendedores*/
+int ler_vendedores(FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendedores, faz o parse de cada vendedor do arquivo para o vetor, e retorna quantidade total de vendedores*/
   int i=0;
   printf ("Vendedores:\n");
   while((fscanf(arquivo,"%d %d %d %d %s %s %[^\n]", &vendedores[i].id, &vendedores[i].data_nasc.dia, &vendedores[i].data_nasc.mes, &vendedores[i].data_nasc.ano ,vendedores[i].sexo,vendedores[i].cpf, vendedores[i].nome))!=EOF ){
@@ -83,13 +85,18 @@ int ler_vendedores(Vendedor * vendedores,FILE * arquivo){ /* Esta função receb
   return i;
 }
 
-int ler_vendas(Venda * vendas,FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendas, faz o parse de cada venda do arquivo para o vetor, e retorna quantidade total de vendas*/
+int ler_vendas(FILE * arquivo){ /* Esta função recebe o arquivo e o vetor de vendas, faz o parse de cada venda do arquivo para o vetor, e retorna quantidade total de vendas*/
   int i=0;
   printf ("Vendas:\n");
   while((fscanf(arquivo,"%d %d %d %d %d %f %[^\n]", &vendas[i].id, &vendas[i].vendedorId, &vendas[i].data.dia,&vendas[i].data.mes,&vendas[i].data.ano,&vendas[i].valor,vendas[i].descricao))!=EOF ){
     //fgets (vendas[i].descricao,255,arquivo);
     printf ("%d %d %d %d %d %f %s\n", vendas[i].id, vendas[i].vendedorId, vendas[i].data.dia, vendas[i].data.mes, vendas[i].data.ano,vendas[i].valor,vendas[i].descricao);
     i++;
+
+    while(i >= max_vendas){
+      max_vendas+=1;
+      vendas = (Venda*)realloc(vendas,sizeof(Venda)*max_vendas);
+    }
   }
   return i;
 }
