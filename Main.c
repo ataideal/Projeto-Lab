@@ -42,8 +42,11 @@ int main(int argc, char *argv[]){
   gtk_builder_add_from_file(builder, UI_FILE, NULL);
 
   window = gtk_builder_get_object(builder, "window_principal");
+
   gtk_window_set_default_size((gpointer) GTK_WINDOW(window), 500, 400);
   gtk_window_set_title (GTK_WINDOW(window), "Sistema de Vendas");  
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
+
   g_signal_connect_swapped (G_OBJECT (window), "destroy", G_CALLBACK (gtk_main_quit), (gpointer) window);
 	
   btn_menu_item_cadastro_vendedor = gtk_builder_get_object(builder, "item_cadastrar_vendedor");

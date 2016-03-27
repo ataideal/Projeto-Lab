@@ -120,6 +120,7 @@ void open_new_vendedor(){
   GObject *window_vendedores, *save_vendedor;
   save_vendedor = gtk_builder_get_object(builder_vendedor, "btn_salvar");
   window_vendedores = gtk_builder_get_object(builder_vendedor, "cadastro_vendedores");
+  gtk_window_set_position(GTK_WINDOW(window_vendedores), GTK_WIN_POS_CENTER_ALWAYS);
   gtk_window_present (GTK_WINDOW(window_vendedores));
   g_signal_connect(G_OBJECT(save_vendedor), "clicked", G_CALLBACK(btn_salvar_vendedor), (gpointer) window_vendedores);
 }
@@ -130,7 +131,7 @@ void open_relatorio_total_vendas_geral(){
   GObject *window_relatorio, *buscar;
   buscar = gtk_builder_get_object(builder_relatorio_geral, "btn_buscar");
   window_relatorio = gtk_builder_get_object(builder_relatorio_geral, "window1");
-  
+  gtk_window_set_position(GTK_WINDOW(window_relatorio), GTK_WIN_POS_CENTER_ALWAYS);
   gtk_window_present (GTK_WINDOW(window_relatorio));
   g_signal_connect(G_OBJECT(buscar), "clicked", G_CALLBACK(btn_buscar_relatorio_geral), (gpointer) window_relatorio);
 }
@@ -145,6 +146,7 @@ void open_list_vendas_vendedor_mes(){
   GObject *window_vendedores, *save_vendedor;
   buscar_mes = gtk_builder_get_object(builder_vendedor, "btn_buscar");
   window_vendedores = gtk_builder_get_object(builder_vendedor, "window1");
+  gtk_window_set_position(GTK_WINDOW(window_vendedores), GTK_WIN_POS_CENTER_ALWAYS);
   txt_nome_auto = gtk_builder_get_object(builder_vendedor, "entry1");
   entry_comp = gtk_entry_completion_new();
   
