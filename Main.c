@@ -28,6 +28,8 @@ GObject *window, *btn_cadastro_vendedor, *btn_cadastro_vendedor2, *btn_cadastro_
 
 int main(int argc, char *argv[]){
 
+  GObject *btn_menu_item_cadastro_vendedor, *btn_menu_item_cadastro_vendas, *btn_sair, *btn_menu_mes_vendas, *btn_menu_mais_vendeu, *btn_menu_vendas_mes;
+
   vendas = (Venda*)malloc(sizeof(Venda)*max_vendas);
   quantidade_vendas = ler_vendas(ler_arquivo(VENDAS_FILE));
   quantidade_vendedores = ler_vendedores(ler_arquivo(VENDEDOR_FILE));
@@ -41,8 +43,27 @@ int main(int argc, char *argv[]){
 
   window = gtk_builder_get_object(builder, "window_principal");
   gtk_window_set_default_size((gpointer) GTK_WINDOW(window), 500, 400);
+  gtk_window_set_title (GTK_WINDOW(window), "Sistema de Vendas");  
   g_signal_connect_swapped (G_OBJECT (window), "destroy", G_CALLBACK (gtk_main_quit), (gpointer) window);
 	
+  btn_menu_item_cadastro_vendedor = gtk_builder_get_object(builder, "item_cadastrar_vendedor");
+  g_signal_connect(G_OBJECT(btn_menu_item_cadastro_vendedor), "activate", G_CALLBACK(open_new_vendedor), (gpointer) window);
+
+  btn_menu_item_cadastro_vendas = gtk_builder_get_object(builder, "item_cadastro_vendas");
+  g_signal_connect(G_OBJECT(btn_menu_item_cadastro_vendas), "activate", G_CALLBACK(open_new_vendedor), (gpointer) window);
+
+  btn_menu_mes_vendas = gtk_builder_get_object(builder, "item_mes_vendas");
+  g_signal_connect(G_OBJECT(btn_menu_mes_vendas), "activate", G_CALLBACK(open_mes_com_mais_vendas), (gpointer) window);
+
+  btn_menu_mais_vendeu = gtk_builder_get_object(builder, "item_mais_vendeu");
+  g_signal_connect(G_OBJECT(btn_menu_mais_vendeu), "activate", G_CALLBACK(open_relatorio_total_vendas_geral), (gpointer) window);//mudar aqui
+
+  btn_menu_vendas_mes = gtk_builder_get_object(builder, "item_vendas");
+  g_signal_connect(G_OBJECT(btn_menu_vendas_mes), "activate", G_CALLBACK(open_list_vendas_vendedor_mes), (gpointer) window);//mudar aqui
+
+  btn_sair = gtk_builder_get_object(builder, "imagemenuitem5");
+  g_signal_connect(G_OBJECT(btn_sair), "activate", G_CALLBACK(gtk_main_quit), (gpointer) window);
+
   btn_cadastro_vendedor = gtk_builder_get_object(builder, "btn_cadastro_vendedor");
   g_signal_connect(G_OBJECT(btn_cadastro_vendedor), "clicked", G_CALLBACK(open_new_vendedor), (gpointer) window);
 
