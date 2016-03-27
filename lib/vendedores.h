@@ -7,6 +7,7 @@
 #define UI_CADASTRO_VENDEDOR_FILE "ui/cadastro_vendedores.glade"
 #define UI_RELATORIO_GERAL_FILE "ui/relatorio_mes_geral.glade"
 #define UI_RELATORIO_VENDEDOR_MES_FILE "ui/relatorio_mes.glade"
+#define UI_LIST_VENDEDOR_FILE "ui/lista_vendedores.glade"
 
 GtkBuilder *builder_vendedor, *builder_relatorio_geral; 
 GObject *txt_nome, *combo_sexo, *txt_cpf, *txt_dia, *txt_mes, *txt_ano, *txt_valor;

@@ -137,7 +137,37 @@ void open_relatorio_total_vendas_geral(){
 }
 
 void open_list_vendedor(){
+  builder_vendedor = gtk_builder_new (); 
+  gtk_builder_add_from_file(builder_vendedor, UI_LIST_VENDEDOR_FILE, NULL);
+  GObject *window_vendedores, *label, *tree;
+  window_vendedores = gtk_builder_get_object(builder_vendedor, "window1");
+  tree = gtk_builder_get_object(builder_vendedor, "treeview1");
+  label = gtk_builder_get_object(builder_vendedor, "label1");
+  gtk_window_set_position(GTK_WINDOW(window_vendedores), GTK_WIN_POS_CENTER_ALWAYS);
+  gtk_window_set_title(GTK_WINDOW(window_vendedores), "Listar Vendedores");
+  gtk_window_present (GTK_WINDOW(window_vendedores));
 
+  char msg[100];
+  
+  int i;
+
+  sprintf(msg, "Total de vendedores: %d", quantidade_vendedores);
+
+  gtk_label_set_text(GTK_LABEL(label), msg);
+
+  GtkListStore *_store;
+  GtkTreeIter iter;
+
+  _store = gtk_list_store_new(5, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+
+  for (i=0;i<quantidade_vendedores;i++){
+    char data_nasc[11];
+    sprintf(data_nasc, "%d/%d/%d", vendedores[i].data_nasc.dia, vendedores[i].data_nasc.mes, vendedores[i].data_nasc.ano);
+    gtk_list_store_append (_store, &iter);
+    gtk_list_store_set(_store, &iter, 0, vendedores[i].id, 1, vendedores[i].nome, 2, data_nasc, 3, vendedores[i].sexo, 4, vendedores[i].cpf, -1);      
+  }
+
+  gtk_tree_view_set_model(GTK_TREE_VIEW(tree), GTK_TREE_MODEL(_store));
 }
 
 void open_list_vendas_vendedor_mes(){

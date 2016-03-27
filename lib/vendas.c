@@ -7,6 +7,7 @@ extern int quantidade_vendas;
 extern int quantidade_vendedores;
 extern Venda * vendas;
 extern Vendedor vendedores[10];
+
 void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
   setlocale(LC_ALL,"C");
 	const gchar *vendedorId, *descricao, *valor, *dia, *mes, *ano;
@@ -77,9 +78,6 @@ void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
 	    }
 	    gtk_widget_destroy(GTK_WIDGET(this_window));
     }
-
-	 
-
 }
 
 void open_new_vendas(){
@@ -143,7 +141,9 @@ void open_mes_com_mais_vendas(GtkWidget *button, GtkWindow *this_window){
     	if(mes_vendas[i]>maior_mes)
     		maior_mes = mes_vendas[i];
     }
+    
     char msg[100];
+
     for (i=1;i<=12;i++){
     	if(mes_vendas[i] == maior_mes){
     		sprintf(msg, "Mês com mais vendas foi: %s com %d vendas.", mes[i], mes_vendas[i]);
@@ -174,18 +174,22 @@ int salvar_venda(Venda venda){ /*Esta função recebe um venda e o escreve no ar
 	//Atualizado quantidade de vendas
 	venda.id = incr_venda();
 
-  if(quantidade_vendas+1 >= max_vendas){
-      max_vendas+=1;
-      vendas = (Venda*)realloc(vendas,sizeof(Venda)*max_vendas);
-  }
+	if(quantidade_vendas+1 >= max_vendas){
+		max_vendas+=1;
+	    vendas = (Venda*)realloc(vendas,sizeof(Venda)*max_vendas);
+	}
+	
 	vendas[quantidade_vendas] = venda;
-	quantidade_vendas ++;
+	quantidade_vendas++;
 
 	int is_ok = -1;
+
 	FILE * fp = fopen ("Vendas.txt","a");
+	
 	if(fp != NULL){
-		is_ok=fprintf (fp,"%d %d %d %d %d %f %s\n",venda.id, venda.vendedorId, venda.data.dia, venda.data.mes, venda.data.ano,venda.valor,venda.descricao);
+		is_ok = fprintf (fp,"%d %d %d %d %d %f %s\n",venda.id, venda.vendedorId, venda.data.dia, venda.data.mes, venda.data.ano,venda.valor,venda.descricao);
 	}
+	
 	fclose(fp);
 
 	return is_ok;
