@@ -114,6 +114,50 @@ void open_new_vendas(){
   	g_signal_connect(G_OBJECT(save_venda), "clicked", G_CALLBACK(btn_salvar_venda), (gpointer) window_vendas);
 }
 
+void open_list_vendas(){
+  GtkBuilder *builder_vendas = gtk_builder_new (); 
+  gtk_builder_add_from_file(builder_vendas, UI_LIST_VENDAS_FILE, NULL);
+
+  GObject *window_vendas, *label, *tree;
+  window_vendas = gtk_builder_get_object(builder_vendas, "window1");
+  tree = gtk_builder_get_object(builder_vendas, "treeview1");
+  label = gtk_builder_get_object(builder_vendas, "label1");
+  gtk_window_set_position(GTK_WINDOW(window_vendas), GTK_WIN_POS_CENTER_ALWAYS);
+  gtk_window_set_title(GTK_WINDOW(window_vendas), "Listar Vendas");
+  gtk_window_present (GTK_WINDOW(window_vendas));
+
+  char msg[100];
+  
+  int i, j;
+
+  sprintf(msg, "Total de vendas: %d", quantidade_vendas);
+
+  gtk_label_set_text(GTK_LABEL(label), msg);
+
+  GtkListStore *_store;
+  GtkTreeIter iter;
+
+  _store = gtk_list_store_new(5, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING);
+
+  for (i=0;i<quantidade_vendas;i++){
+    char data[11], nome[128];
+
+    sprintf(data, "%d/%d/%d", vendas[i].data.dia, vendas[i].data.mes, vendas[i].data.ano);
+    printf("%s\n", data);
+    gtk_list_store_append (_store, &iter);
+    for(j = 0; j < quantidade_vendedores; j++){
+    	if(vendedores[j].id == vendas[i].vendedorId){
+    		sprintf(nome, "%d - %s", vendedores[j].id, vendedores[j].nome);
+    		break;
+    	}
+    }
+    gtk_list_store_set(_store, &iter, 0, vendas[i].id, 1, nome, 2, data, 3, vendas[i].valor, 4, vendas[i].descricao, -1);      
+  	printf("%d\n", i);
+  }
+
+  gtk_tree_view_set_model(GTK_TREE_VIEW(tree), GTK_TREE_MODEL(_store));
+}
+
 void open_mes_com_mais_vendas(GtkWidget *button, GtkWindow *this_window){
 	
 	GtkTreeIter iter;

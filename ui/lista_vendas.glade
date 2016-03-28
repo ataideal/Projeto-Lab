@@ -9,7 +9,9 @@
       <column type="gchararray"/>
       <!-- column-name column2 -->
       <column type="gchararray"/>
+      <!-- column-name gchararray -->
       <column type="gchararray"/>
+      <!-- column-name gchararray1 -->
       <column type="gchararray"/>
     </columns>
   </object>
@@ -22,93 +24,6 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkTreeView" id="treeview1">
-            <property name="width_request">500</property>
-            <property name="height_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="margin_right">152</property>
-            <property name="model">lista</property>
-            <property name="reorderable">True</property>
-            <child internal-child="selection">
-              <object class="GtkTreeSelection" id="treeview-selection1"/>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="tvcolumn0">
-                <property name="title">ID</property>
-                <property name="expand">True</property>
-                <property name="clickable">True</property>
-                <property name="alignment">0.5</property>
-                <property name="reorderable">True</property>
-                <property name="sort_indicator">True</property>
-                <property name="sort_column_id">0</property>
-                <child>
-                  <object class="GtkCellRendererText" id="tvcell0"/>
-                  <attributes>
-                    <attribute name="text">0</attribute>
-                  </attributes>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="tvcolumn1">
-                <property name="title">Nome</property>
-                <property name="expand">True</property>
-                <property name="clickable">True</property>
-                <property name="alignment">0.5</property>
-                <property name="reorderable">True</property>
-                <property name="sort_indicator">True</property>
-                <property name="sort_column_id">0</property>
-                <child>
-                  <object class="GtkCellRendererText" id="tvcell1"/>
-                  <attributes>
-                    <attribute name="text">1</attribute>
-                  </attributes>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="treeviewcolumn1">
-                <property name="title" translatable="yes">Data Nascimento</property>
-                <property name="clickable">True</property>
-                <child>
-                  <object class="GtkCellRendererText" id="tTeTs"/>
-                   <attributes>
-                    <attribute name="text">2</attribute>
-                  </attributes>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="treeviewcolumn2">
-                <property name="title" translatable="yes">Sexo</property>
-                <property name="clickable">True</property>
-                <child>
-                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                   <attributes>
-                    <attribute name="text">3</attribute>
-                  </attributes>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="treeviewcolumn3">
-                <property name="title" translatable="yes">CPF</property>
-                <property name="clickable">True</property>
-                <child>
-                  <object class="GtkCellRendererText" id="cellrenderertext2"/>
-                   <attributes>
-                    <attribute name="text">4</attribute>
-                  </attributes>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="x">30</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkLabel" id="label1">
             <property name="width_request">100</property>
             <property name="height_request">80</property>
@@ -117,8 +32,115 @@
             <property name="label" translatable="yes">label</property>
           </object>
           <packing>
-            <property name="x">4</property>
+            <property name="x">30</property>
             <property name="y">320</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow1">
+            <property name="width_request">593</property>
+            <property name="height_request">320</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="margin_bottom">1</property>
+            <property name="shadow_type">etched-in</property>
+            <child>
+              <object class="GtkTreeView" id="treeview1">
+                <property name="width_request">500</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="model">lista</property>
+                <property name="reorderable">True</property>
+                <property name="search_column">0</property>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection" id="treeview-selection"/>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="tvcolumn0">
+                    <property name="title">ID</property>
+                    <property name="expand">True</property>
+                    <property name="clickable">True</property>
+                    <property name="alignment">0.5</property>
+                    <property name="reorderable">True</property>
+                    <property name="sort_indicator">True</property>
+                    <property name="sort_column_id">0</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="tvcell0"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="tvcolumn1">
+                    <property name="title">Vendedor</property>
+                    <property name="expand">True</property>
+                    <property name="clickable">True</property>
+                    <property name="alignment">0.5</property>
+                    <property name="reorderable">True</property>
+                    <property name="sort_indicator">True</property>
+                    <property name="sort_column_id">1</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="tvcell1"/>
+                      <attributes>
+                        <attribute name="text">1</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumn1">
+                    <property name="title" translatable="yes">Data</property>
+                    <property name="clickable">True</property>
+                    <property name="reorderable">True</property>
+                    <property name="sort_indicator">True</property>
+                    <property name="sort_column_id">2</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="tTeTs"/>
+                      <attributes>
+                        <attribute name="text">2</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumn2">
+                    <property name="title" translatable="yes">Valor</property>
+                    <property name="clickable">True</property>
+                    <property name="reorderable">True</property>
+                    <property name="sort_indicator">True</property>
+                    <property name="sort_column_id">3</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                      <attributes>
+                        <attribute name="text">3</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumn3">
+                    <property name="title" translatable="yes">Descrição</property>
+                    <property name="clickable">True</property>
+                    <property name="reorderable">True</property>
+                    <property name="sort_indicator">True</property>
+                    <property name="sort_column_id">4</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext2"/>
+                      <attributes>
+                        <attribute name="text">4</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">39</property>
+            <property name="y">14</property>
           </packing>
         </child>
       </object>
