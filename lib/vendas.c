@@ -12,6 +12,7 @@ void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
   setlocale(LC_ALL,"C");
 	const gchar *vendedorId, *descricao, *valor, *dia, *mes, *ano;
 
+  printf ("DEBUG---\n");
 	Venda new;
 	txt_vendedor = gtk_builder_get_object(builder_venda,"txt_vendas");
 	txt_descricao = gtk_builder_get_object(builder_venda, "txt_descricao");
@@ -27,57 +28,63 @@ void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
 	mes =  gtk_entry_get_text(GTK_ENTRY(txt_mes));
 	ano =  gtk_entry_get_text(GTK_ENTRY(txt_ano));
 
-	int i,j=0,id;
-	char id_aux[300];
-	char * aux = (char *) vendedorId;
-  	for(i = (strrchr(aux, '-') - aux) + 2; i <= strlen(aux)-1 ; i++){
-    	id_aux[j] = aux[i];
-    	j++;
-  	}
-  	id_aux[j] = '\0';
-  
-  	id = atoi(id_aux);
 
-	sprintf(new.descricao, "%s", (char *)descricao);
+  if(strcmp(vendedorId,"")==0 || strcmp(descricao,"")==0 ||strcmp(valor,"")==0 ||strcmp(dia,"")==0 ||strcmp(mes,"")==0 ||strcmp(ano,"")==0)
+    alert_info(this_window, "Preencha todos os campos!");
+  else{
+  	int i,j=0,id;
+  	char id_aux[300];
+  	char * aux = (char *) vendedorId;
+    	for(i = (strrchr(aux, '-') - aux) + 2; i <= strlen(aux)-1 ; i++){
+      	id_aux[j] = aux[i];
+      	j++;
+    	}
+    	id_aux[j] = '\0';
+    
+    	id = atoi(id_aux);
 
-	new.valor = atof((char*)valor);
-	new.data.dia = atoi((char*)dia);
-	new.data.mes = atoi((char*)mes);
-	new.data.ano = atoi((char*)ano);  
-	new.vendedorId = id;
-	//printf ("VENDEDOR ID: %d\n",new.vendedorId);
-  //printf ("VALOR CHAR: %s\nVALOR FLOAT: %f\n", (char*)valor,new.valor); 
-	//printf("\n****** Verificando a localidade corrente ********\n\n");
- 	//printf ("Localidade corrente: %s\n", setlocale(LC_ALL,NULL) );
+  	sprintf(new.descricao, "%s", (char *)descricao);
 
-	int bissexto=0;
-  	if (( new.data.ano % 4 == 0 && new.data.ano  % 100 != 0 ) || new.data.ano  % 400 == 0)
-    	bissexto=1;
-  	int flag_mes;
-  	if(new.data.mes == 1 ||new.data.mes == 3 ||new.data.mes == 5 ||new.data.mes == 7 || new.data.mes == 8 || new.data.mes == 10 || new.data.mes == 12)
-    	flag_mes=2;
-  	else if (new.data.mes == 4 ||new.data.mes == 6 ||new.data.mes == 9 ||new.data.mes == 11)
-    	flag_mes=1;
- 	else
-    	flag_mes=0;
+  	new.valor = atof((char*)valor);
+  	new.data.dia = atoi((char*)dia);
+  	new.data.mes = atoi((char*)mes);
+  	new.data.ano = atoi((char*)ano);  
+  	new.vendedorId = id;
+  	//printf ("VENDEDOR ID: %d\n",new.vendedorId);
+    //printf ("VALOR CHAR: %s\nVALOR FLOAT: %f\n", (char*)valor,new.valor); 
+  	//printf("\n****** Verificando a localidade corrente ********\n\n");
+   	//printf ("Localidade corrente: %s\n", setlocale(LC_ALL,NULL) );
 
+  	int bissexto=0;
+    	if (( new.data.ano % 4 == 0 && new.data.ano  % 100 != 0 ) || new.data.ano  % 400 == 0)
+      	bissexto=1;
+    	int flag_mes;
+    	if(new.data.mes == 1 ||new.data.mes == 3 ||new.data.mes == 5 ||new.data.mes == 7 || new.data.mes == 8 || new.data.mes == 10 || new.data.mes == 12)
+      	flag_mes=2;
+    	else if (new.data.mes == 4 ||new.data.mes == 6 ||new.data.mes == 9 ||new.data.mes == 11)
+      	flag_mes=1;
+   	else
+      	flag_mes=0;
 
-    if (valor <= 0)	
-    	alert_error(this_window,"Corriga o Valor!");
-    else if (new.data.ano<=0)
-   		alert_error(this_window,"Corriga o ano!");
-    else if (new.data.mes <1  ||  new.data.mes > 12)
-    	alert_error(this_window,"Corriga o mês!");
-    else if ((new.data.dia<1 || new.data.dia>31 && flag_mes==2) || (new.data.dia<1 || new.data.dia>30 && flag_mes==1) || (new.data.dia<1 || new.data.dia>28 && flag_mes==0 && bissexto==1) || (new.data.dia<1 || new.data.dia>27 && flag_mes==0 && bissexto==0))
-    	alert_error(this_window,"Corriga o dia!");
-    else{
-	    if(salvar_venda(new) >= 0){
-	      alert_info(this_window, "Salvo com sucesso!");	      
-	    }else{
-	      alert_info(this_window, "Erro ao salvar!");
-	    }
-	    gtk_widget_destroy(GTK_WIDGET(this_window));
-    }
+      printf ("DEBUG---\n");
+      if (valor <= 0)	
+      	alert_error(this_window,"Corriga o Valor!");
+      else if (new.data.ano<=0)
+     		alert_error(this_window,"Corriga o ano!");
+      else if (new.data.mes <1  ||  new.data.mes > 12)
+      	alert_error(this_window,"Corriga o mês!");
+      else if ((new.data.dia<1 || new.data.dia>31 && flag_mes==2) || (new.data.dia<1 || new.data.dia>30 && flag_mes==1) || (new.data.dia<1 || new.data.dia>28 && flag_mes==0 && bissexto==1) || (new.data.dia<1 || new.data.dia>27 && flag_mes==0 && bissexto==0))
+      	alert_error(this_window,"Corriga o dia!");
+      else{
+  	    if(salvar_venda(new) >= 0){
+  	      alert_info(this_window, "Salvo com sucesso!");	      
+  	    }else{
+          
+  	      alert_info(this_window, "Erro ao salvar!");
+  	    }
+  	    gtk_widget_destroy(GTK_WIDGET(this_window));
+      }
+  }
 }
 
 void open_new_vendas(){
