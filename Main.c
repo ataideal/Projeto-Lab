@@ -33,6 +33,10 @@ int main(int argc, char *argv[]){
   vendas = (Venda*)malloc(sizeof(Venda)*max_vendas);
   quantidade_vendas = ler_vendas(ler_arquivo(VENDAS_FILE));
   quantidade_vendedores = ler_vendedores(ler_arquivo(VENDEDOR_FILE));
+  FILE * fp = ler_arquivo("incr_venda.txt");
+  fclose(fp);
+  fp = ler_arquivo("incr_vendedor.txt");
+  fclose(fp);
 
   gtk_init (&argc, &argv);
 
@@ -97,7 +101,21 @@ FILE * ler_arquivo (char path[]){ /* Esta função recebe como parametro a url d
       fp = fopen (path, "r");
       if (fp == NULL) {
           printf ("Houve um erro ao abrir o arquivo.\n");
-          return NULL;
+          fp = fopen (path, "w");
+          fclose(fp);
+          fp = fopen (path, "r");
+          if(strcmp(path,"incr_venda.txt")==0 || strcmp(path,"incr_vendedor.txt")==0 ){
+            fp = fopen (path, "w");
+            fprintf (fp,"0");
+          }
+          if(fp==NULL){
+            printf ("Houve um erro ao abrir o arquivo.\n");
+            return NULL;
+          }
+          else{
+            printf ("Arquivo criado\n");
+            return fp;
+          }
       }
       //printf ("Arquivo lido com sucesso\n");
       return fp;

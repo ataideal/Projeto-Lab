@@ -283,6 +283,19 @@ int salvar_vendedor(Vendedor vendedor){ /*Esta função recebe um vendedor e o e
 
 int incr_vendedor(){ /*Esta função incrementa o id do vendedor e o retorna */
   FILE * fp = fopen ("incr_vendedor.txt", "r");
+  /*if (fp == NULL) {
+          printf ("Houve um erro ao abrir o arquivo.\n");
+          fp = fopen ("incr_vendedor.txt", "w");
+          fprintf (fp,"0");
+          fclose(fp);
+          fp = fopen ("incr_vendedor.txt", "r");
+          if(fp==NULL){
+            printf ("Houve um erro ao abrir o arquivo.\n");
+          }
+          else{
+            printf ("Arquivo criado\n");
+          }
+  }*/
   int incr;
   fscanf(fp,"%d",&incr);
   //printf ("%d\n",incr);

@@ -248,6 +248,19 @@ int salvar_venda(Venda venda){ /*Esta função recebe um venda e o escreve no ar
 
 int incr_venda(){ /*Esta função incrementa o id da venda e o retorna */
   FILE * fp = fopen ("incr_venda.txt", "r");
+  /*if (fp == NULL) {
+          printf ("Houve um erro ao abrir o arquivo.\n");
+          fp = fopen ("incr_venda.txt", "w");
+          fprintf (fp,"0");
+          fclose(fp);
+          fp = fopen ("incr_venda.txt", "r");
+          if(fp==NULL){
+            printf ("Houve um erro ao abrir o arquivo.\n");
+          }
+          else{
+            printf ("Arquivo criado\n");
+          }
+  }*/
   int incr;
   fscanf(fp,"%d",&incr);
   //printf ("%d\n",incr);
