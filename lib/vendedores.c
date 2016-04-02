@@ -162,13 +162,20 @@ void open_list_vendedor(){
   GtkListStore *_store;
   GtkTreeIter iter;
 
-  _store = gtk_list_store_new(5, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+  _store = gtk_list_store_new(6, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_INT);
 
   for (i=0;i<quantidade_vendedores;i++){
     char data_nasc[11];
     sprintf(data_nasc, "%d/%d/%d", vendedores[i].data_nasc.dia, vendedores[i].data_nasc.mes, vendedores[i].data_nasc.ano);
     gtk_list_store_append (_store, &iter);
-    gtk_list_store_set(_store, &iter, 0, vendedores[i].id, 1, vendedores[i].nome, 2, data_nasc, 3, vendedores[i].sexo, 4, vendedores[i].cpf, -1);      
+    int j,totalvendas=0;
+    for(j=0;j<quantidade_vendas;j++){
+      if(vendedores[i].id == vendas[j].vendedorId)
+        totalvendas++;
+    }
+
+
+    gtk_list_store_set(_store, &iter, 0, vendedores[i].id, 1, vendedores[i].nome, 2, data_nasc, 3, vendedores[i].sexo, 4, vendedores[i].cpf, 5,totalvendas,-1);      
   }
 
   gtk_tree_view_set_model(GTK_TREE_VIEW(tree), GTK_TREE_MODEL(_store));
