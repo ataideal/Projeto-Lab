@@ -6,25 +6,23 @@ extern int quantidade_vendas;
 extern Venda * vendas;
 extern Vendedor vendedores[10];
 
-void open_relatorio_total_vendas_vendedor(){
-
-}
-
-void btn_buscar_total_vendas_vendedor(){
-
-}
-
-void btn_buscar_relatorio_geral(){
+void btn_buscar_relatorio_geral(GtkButton *button, GtkWindow *this_window){
   
   const gchar *mes;
   GtkTreeIter iter;
+
+  GtkListStore *store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
+
   if(store != NULL) gtk_list_store_clear (store);
 
-  store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
-
   combo_mes = gtk_builder_get_object(builder_relatorio_geral, "comboboxtext1");
-  tree_relatorio_geral = gtk_builder_get_object(builder_relatorio_geral, "treeview1");
+  GObject *tree_relatorio_geral = gtk_builder_get_object(builder_relatorio_geral, "treeview1");
   mes = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_mes));
+
+  if(mes == NULL){
+    alert_error(this_window, "Necessário escolher o mês");
+    return ;
+  }
   
   int __mes = retornar_mes_valor((char *) mes);
 
@@ -99,7 +97,7 @@ void btn_salvar_vendedor(GtkWidget* button, GtkWindow *this_window){
     if(digito!=11)
       alert_error(this_window,"Verifique o cpf! (somente numeros)");
     else if (quantidade_vendedores ==10)
-      alert_error(this_window,"Já existem 10 vendedores!");
+      alert_error(this_window,"Desculpe, já existem 10 vendedores!");
     else if (new.data_nasc.ano<=0)
       alert_error(this_window,"Corriga o ano de nascimento!");
     else if (new.data_nasc.mes <1  ||  new.data_nasc.mes > 12)
@@ -124,6 +122,7 @@ void open_new_vendedor(){
   GObject *window_vendedores, *save_vendedor;
   save_vendedor = gtk_builder_get_object(builder_vendedor, "btn_salvar");
   window_vendedores = gtk_builder_get_object(builder_vendedor, "cadastro_vendedores");
+  gtk_window_set_title(GTK_WINDOW(window_vendedores), "Cadastro de Vendedores");
   gtk_window_set_position(GTK_WINDOW(window_vendedores), GTK_WIN_POS_CENTER_ALWAYS);
   gtk_window_present (GTK_WINDOW(window_vendedores));
   g_signal_connect(G_OBJECT(save_vendedor), "clicked", G_CALLBACK(btn_salvar_vendedor), (gpointer) window_vendedores);
@@ -135,6 +134,7 @@ void open_relatorio_total_vendas_geral(){
   GObject *window_relatorio, *buscar;
   buscar = gtk_builder_get_object(builder_relatorio_geral, "btn_buscar");
   window_relatorio = gtk_builder_get_object(builder_relatorio_geral, "window1");
+  gtk_window_set_title(GTK_WINDOW(window_relatorio), "Mais vendeu por mês");
   gtk_window_set_position(GTK_WINDOW(window_relatorio), GTK_WIN_POS_CENTER_ALWAYS);
   gtk_window_present (GTK_WINDOW(window_relatorio));
   g_signal_connect(G_OBJECT(buscar), "clicked", G_CALLBACK(btn_buscar_relatorio_geral), (gpointer) window_relatorio);
@@ -187,15 +187,17 @@ void open_list_vendas_vendedor_mes(){
   GObject *window_vendedores, *save_vendedor;
   buscar_mes = gtk_builder_get_object(builder_vendedor, "btn_buscar");
   window_vendedores = gtk_builder_get_object(builder_vendedor, "window1");
+  gtk_window_set_title(GTK_WINDOW(window_vendedores), "Vendas por mês");
   gtk_window_set_position(GTK_WINDOW(window_vendedores), GTK_WIN_POS_CENTER_ALWAYS);
   txt_nome_auto = gtk_builder_get_object(builder_vendedor, "entry1");
   entry_comp = gtk_entry_completion_new();
   
   GtkTreeIter iter;
-  if(store != NULL) gtk_list_store_clear (store);
+  
+  GtkListStore *store;
 
   store = gtk_list_store_new(1, G_TYPE_STRING);
-
+  if(store != NULL) gtk_list_store_clear (store);
   int i;
 
   for (i=0;i<quantidade_vendedores;i++){
@@ -222,6 +224,8 @@ void relatorio_total_vendas_vendedor_mes(GtkWidget* button, GtkWindow *this_wind
   GtkListStore *_store;
 
   _store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_FLOAT);
+
+  GObject *combo_mes, *tree_relatorio_meses;
 
   combo_mes = gtk_builder_get_object(builder_vendedor, "comboboxtext1");
   mes = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_mes));

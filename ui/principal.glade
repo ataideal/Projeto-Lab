@@ -114,14 +114,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkMenuItem" id="item_total_vendas">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Total de Vendas</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                    </child>
-                    <child>
                       <object class="GtkMenuItem" id="item_vendas">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -198,7 +190,9 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_cadastro_vendedor2">
-                <property name="label" translatable="yes">Consultar vendas</property>
+                <property name="label" translatable="yes">Mostrar o número 
+do mês com 
+mais vendas</property>
                 <property name="width_request">130</property>
                 <property name="height_request">130</property>
                 <property name="visible">True</property>
@@ -212,7 +206,11 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_cadastro_vendedor3">
-                <property name="label" translatable="yes">Relatório Mes</property>
+                <property name="label" translatable="yes">Consultar as 
+vendas 
+de um funcionário 
+em um 
+determinado mês</property>
                 <property name="width_request">130</property>
                 <property name="height_request">130</property>
                 <property name="visible">True</property>

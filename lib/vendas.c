@@ -88,18 +88,19 @@ void btn_salvar_venda(GtkWidget *button, GtkWindow *this_window){
 }
 
 void open_new_vendas(){
-	builder_venda = gtk_builder_new (); 
+	  builder_venda = gtk_builder_new (); 
   	gtk_builder_add_from_file(builder_venda, UI_CADASTRO_VENDAS_FILE, NULL);
   	GObject *window_vendas, *save_venda;
   	save_venda = gtk_builder_get_object(builder_venda, "btn_salvar");
   	window_vendas = gtk_builder_get_object(builder_venda, "cadastro_venda");
   	gtk_window_set_position(GTK_WINDOW(window_vendas), GTK_WIN_POS_CENTER_ALWAYS);
+    gtk_window_set_title(GTK_WINDOW(window_vendas), "Cadastro de Vendas");
   	txt_nome_auto = gtk_builder_get_object(builder_venda, "txt_vendas");
   	entry_comp = gtk_entry_completion_new();
   
   	GtkTreeIter iter;
-  	if(store != NULL) gtk_list_store_clear (store);
-
+  	
+    GtkListStore *store;
   	store = gtk_list_store_new(1, G_TYPE_STRING);
 
   	int i;
@@ -169,13 +170,14 @@ void open_mes_com_mais_vendas(GtkWidget *button, GtkWindow *this_window){
 	
 	GtkTreeIter iter;
 
-	builder_relatorio_meses = gtk_builder_new (); 
+	GtkBuilder *builder_relatorio_meses = gtk_builder_new (); 
 	gtk_builder_add_from_file(builder_relatorio_meses, UI_RELATORIO_MESES_VENDAS_FILE, NULL);
 	GObject *window_relatorio_meses;
 	window_relatorio_meses = gtk_builder_get_object(builder_relatorio_meses, "window1");
+  gtk_window_set_title(GTK_WINDOW(window_relatorio_meses), "Meses com mais vendas");
 	gtk_window_set_position(GTK_WINDOW(window_relatorio_meses), GTK_WIN_POS_CENTER_ALWAYS);
-	store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
-	tree_relatorio_meses = gtk_builder_get_object(builder_relatorio_meses, "treeview1");
+	GtkListStore *store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
+	GObject *tree_relatorio_meses = gtk_builder_get_object(builder_relatorio_meses, "treeview1");
 	label = gtk_builder_get_object(builder_relatorio_meses, "label1");
 
 	int mes_vendas[13],maior_mes=0, i, j;

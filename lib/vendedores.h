@@ -12,7 +12,6 @@
 GtkBuilder *builder_vendedor, *builder_relatorio_geral; 
 GObject *txt_nome, *combo_sexo, *txt_cpf, *txt_dia, *txt_mes, *txt_ano, *txt_valor;
 GObject *combo_mes, *tree_relatorio_geral, *buscar_mes, *txt_nome_auto, *tree_relatorio_meses;
-GtkListStore *store;
 GtkEntryCompletion *entry_comp;
 
 struct Vendedor /* Essa estrutura define um vendedor*/

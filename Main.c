@@ -28,7 +28,7 @@ GObject *window, *btn_cadastro_vendedor, *btn_cadastro_vendedor2, *btn_cadastro_
 
 int main(int argc, char *argv[]){
 
-  GObject *btn_menu_item_cadastro_vendedor, *btn_lista_vendas, *btn_menu_item_cadastro_vendas, *btn_sair, *btn_menu_mes_vendas, *btn_menu_mais_vendeu, *btn_menu_vendas_mes, *btn_lista_vendedores;
+  GObject *btn_menu_item_cadastro_vendedor, *btn_lista_vendas, *btn_sair_2, *btn_menu_item_cadastro_vendas, *btn_sair, *btn_menu_mes_vendas, *btn_menu_mais_vendeu, *btn_menu_vendas_mes, *btn_lista_vendedores;
 
   vendas = (Venda*)malloc(sizeof(Venda)*max_vendas);
   quantidade_vendas = ler_vendas(ler_arquivo(VENDAS_FILE));
@@ -73,6 +73,9 @@ int main(int argc, char *argv[]){
 
   btn_menu_vendas_mes = gtk_builder_get_object(builder, "item_vendas");
   g_signal_connect(G_OBJECT(btn_menu_vendas_mes), "activate", G_CALLBACK(open_list_vendas_vendedor_mes), (gpointer) window);//mudar aqui
+ 
+  btn_sair_2 = gtk_builder_get_object(builder, "menuitem4");
+  g_signal_connect(G_OBJECT(btn_sair_2), "activate", G_CALLBACK(gtk_main_quit), (gpointer) window);
 
   btn_sair = gtk_builder_get_object(builder, "imagemenuitem5");
   g_signal_connect(G_OBJECT(btn_sair), "activate", G_CALLBACK(gtk_main_quit), (gpointer) window);
