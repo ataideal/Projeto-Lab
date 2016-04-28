@@ -86,15 +86,21 @@ void btn_salvar_vendedor(GtkWidget* button, GtkWindow *this_window){
     else
       flag_mes=0;
 
-    int digito=0,i;
+    int digito=0,digito2=0,i;
     int a = strlen(new.cpf);
     for (i=0;i<a;i++){
         if(isdigit(new.cpf[i]))
           digito++;
     }
 
-
-    if(digito!=11)
+    a = strlen(new.nome);
+    for (i=0;i<a;i++){
+        if(isdigit(new.nome[i]))
+          digito2++;
+    }
+    if(digito2>0)
+      alert_error(this_window,"O nome não pode conter digitos!");
+    else if(digito!=11)
       alert_error(this_window,"Verifique o cpf! (somente numeros)");
     else if (quantidade_vendedores ==10)
       alert_error(this_window,"Desculpe, já existem 10 vendedores!");
