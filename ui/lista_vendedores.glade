@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkListStore" id="lista">
     <columns>
       <!-- column-name column0 -->
@@ -32,6 +31,9 @@
             <property name="can_focus">True</property>
             <property name="model">lista</property>
             <property name="reorderable">True</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection" id="treeview-selection1"/>
+            </child>
             <child>
               <object class="GtkTreeViewColumn" id="tvcolumn0">
                 <property name="title">ID</property>
@@ -57,7 +59,7 @@
                 <property name="alignment">0.5</property>
                 <property name="reorderable">True</property>
                 <property name="sort_indicator">True</property>
-                <property name="sort_column_id">0</property>
+                <property name="sort_column_id">1</property>
                 <child>
                   <object class="GtkCellRendererText" id="tvcell1"/>
                   <attributes>
@@ -106,6 +108,9 @@
               <object class="GtkTreeViewColumn" id="treeviewcolumn4">
                 <property name="title" translatable="yes">Total Vendas</property>
                 <property name="clickable">True</property>
+                <property name="reorderable">True</property>
+                <property name="sort_indicator">True</property>
+                <property name="sort_column_id">5</property>
                 <child>
                   <object class="GtkCellRendererText" id="cellrenderertext3"/>
                   <attributes>
